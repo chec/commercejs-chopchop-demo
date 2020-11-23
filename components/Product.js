@@ -23,9 +23,9 @@ function Product({ media, name, permalink, price, className }) {
             />
           </div>
         )}
-        <div className="flex justify-between py-2 space-x-1">
-          <span className="text-sm md:text-base">{name}</span>
-          <span className="text-sm md:text-base">
+        <div className="flex justify-between py-2 md:py-3 space-x-1">
+          <span className="text-sm md:text-base lg:text-lg">{name}</span>
+          <span className="text-sm md:text-base lg:text-lg">
             {price.formatted_with_symbol}
           </span>
         </div>

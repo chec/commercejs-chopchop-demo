@@ -6,7 +6,7 @@ function CartSummary() {
 
   return (
     <button className="appearance-none" onClick={showCart}>
-      Shopping Bag ({total_unique_items || 0})
+      Shopping Bag ({total_unique_items})
     </button>
   );
 }

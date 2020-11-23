@@ -103,7 +103,7 @@ function ProductPage({ product }) {
               </div>
 
               <div
-                className="pt-5 md:pt-8 lg:pt-10 md:leading-relaxed lg:leading-loose"
+                className="pt-5 md:pt-8 lg:pt-10 md:leading-relaxed lg:leading-loose lg:text-lg"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
             </motion.div>
