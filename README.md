@@ -1,0 +1,5 @@
+# ChopChop
+
+```
+npm run dev
+```
