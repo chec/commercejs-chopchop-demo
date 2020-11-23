@@ -48,14 +48,14 @@ function CartItem({ id, media, name, quantity, line_total }) {
               <span className="pr-2">Quantity:</span>
               <button
                 onClick={decrementQuantity}
-                className="appearance-none inline-flex items-center justify-center rounded border border-black w-5 h-5 text-xs"
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none"
               >
                 -
               </button>
               <span className="px-2 md:text-lg">{quantity}</span>
               <button
                 onClick={incrementQuantity}
-                className="appearance-none inline-flex items-center justify-center rounded border border-black w-5 h-5 text-xs"
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none"
               >
                 +
               </button>
@@ -63,7 +63,7 @@ function CartItem({ id, media, name, quantity, line_total }) {
             <div>
               <button
                 onClick={handleRemoveItem}
-                className="appearance-none inline-flex items-center justify-center rounded border border-black text-xs px-1 h-5"
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black text-xs text-black px-1 h-5 opacity-50 hover:opacity-100 focus:opacity-100 focus:outline-none transition"
               >
                 Remove
               </button>
