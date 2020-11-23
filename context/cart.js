@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useCycle } from "framer-motion";
 
 import { commerce } from "../lib/commerce";
 
@@ -6,11 +7,8 @@ const CartStateContext = React.createContext();
 const CartDispatchContext = React.createContext();
 
 const SET_CART = "SET_CART";
-const SHOW_CART = "SHOW_CART";
-const HIDE_CART = "HIDE_CART";
 
 const initialState = {
-  open: false,
   total_items: 0,
   total_unique_items: 0,
   line_items: [],
@@ -20,16 +18,13 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_CART:
       return { ...state, ...action.payload };
-    case SHOW_CART:
-      return { ...state, open: true };
-    case HIDE_CART:
-      return { ...state, open: false };
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
 };
 
 export const CartProvider = ({ children }) => {
+  const [open, toggle] = useCycle(false, true);
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   React.useEffect(() => {
@@ -49,18 +44,18 @@ export const CartProvider = ({ children }) => {
   const setCart = async (payload) => dispatch({ type: SET_CART, payload });
 
   const showCart = () => {
-    dispatch({ type: SHOW_CART });
+    toggle();
     document.body.classList.add("overflow-hidden");
   };
 
-  const hideCart = () => {
-    dispatch({ type: HIDE_CART });
+  const closeCart = () => {
+    toggle();
     document.body.classList.remove("overflow-hidden");
   };
 
   return (
-    <CartDispatchContext.Provider value={{ setCart, showCart, hideCart }}>
-      <CartStateContext.Provider value={state}>
+    <CartDispatchContext.Provider value={{ setCart, showCart, closeCart }}>
+      <CartStateContext.Provider value={{ open, ...state }}>
         {children}
       </CartStateContext.Provider>
     </CartDispatchContext.Provider>
