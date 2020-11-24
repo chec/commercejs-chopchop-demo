@@ -7,7 +7,9 @@ import ProductList from "../components/ProductList";
 import ProductGrid from "../components/ProductGrid";
 
 export async function getStaticProps() {
-  const { data: products } = await commerce.products.list();
+  const { data } = await commerce.products.list();
+
+  const products = data.filter(({ active }) => active);
 
   return {
     props: {
