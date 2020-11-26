@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
 
@@ -43,17 +43,42 @@ export async function getStaticPaths() {
 function ProductPage({ product }) {
   const { setCart } = useCartDispatch();
   const { variants, assets, meta, related_products } = product;
-  const images = assets.filter(({ is_image }) => is_image);
   const setTheme = useThemeDispatch();
+  const images = assets.filter(({ is_image }) => is_image);
+
+  const initialVariants = React.useMemo(
+    () =>
+      variants.reduce((all, { id, options }) => {
+        const [firstOption] = options;
+
+        return { ...all, [id]: firstOption.id };
+      }, {}),
+    [product.permalink]
+  );
+
+  const [selectedVariants, setSelectedVariants] = React.useState(
+    initialVariants
+  );
 
   React.useEffect(() => {
     setTheme(product.permalink);
 
-    return () => setTheme("default");
+    return () => {
+      setTheme("default");
+      setSelectedVariants(null);
+    };
   }, [product.permalink]);
 
+  const handleVariantChange = ({ target: { id, value } }) =>
+    setSelectedVariants({
+      ...selectedVariants,
+      [id]: value,
+    });
+
   const addToCart = () =>
-    commerce.cart.add(product.id).then(({ cart }) => setCart(cart));
+    commerce.cart
+      .add(product.id, 1, selectedVariants)
+      .then(({ cart }) => setCart(cart));
 
   return (
     <React.Fragment>
@@ -88,7 +113,7 @@ function ProductPage({ product }) {
                 {product.name}
               </h1>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pt-3">
                 <div className="flex items-center">
                   <div className="pr-2">
                     <p className="text-lg md:text-xl lg:text-2xl">
@@ -96,10 +121,14 @@ function ProductPage({ product }) {
                     </p>
                   </div>
 
-                  <VariantPicker variants={variants} />
+                  <VariantPicker
+                    variants={variants}
+                    defaultValues={initialVariants}
+                    onChange={handleVariantChange}
+                  />
                 </div>
 
-                <Button onClick={addToCart}>Add to Cart</Button>
+                <Button onClick={addToCart}>Add to Bag</Button>
               </div>
 
               <div
