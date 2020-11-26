@@ -4,7 +4,7 @@ import cc from "classcat";
 
 function Product({ media, name, permalink, price, className }) {
   const imageClass = cc([
-    "relative rounded-lg hover:rounded-none overflow-hidden w-full",
+    "relative rounded-lg hover:rounded-none overflow-hidden w-full transition-all",
     className,
   ]);
 

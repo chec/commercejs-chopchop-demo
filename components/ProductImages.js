@@ -10,7 +10,7 @@ function ProductImages({ images = [] }) {
         src={url}
         width={image_dimensions.width}
         height={image_dimensions.height}
-        className="rounded-lg"
+        className="rounded-lg hover:rounded-none transition-all"
         quality={100}
         loading="eager"
       />
