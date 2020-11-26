@@ -31,7 +31,7 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
           src={media.source}
           alt={name}
           layout="fill"
-          className="object-cover rounded-lg"
+          className="object-cover rounded-lg hover:rounded-none transition-all"
           loading="eager"
         />
       </div>
@@ -42,10 +42,9 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
           </p>
           {hasVariants && (
             <p>
-              {variants.map(({ variant_name, option_name }, index) => (
+              {variants.map(({ option_name }, index) => (
                 <React.Fragment key={index}>
-                  {index ? ", " : ""}
-                  {variant_name}: {option_name}
+                  {index ? `, ${option_name}` : option_name}
                 </React.Fragment>
               ))}
             </p>
