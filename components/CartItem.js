@@ -1,10 +1,12 @@
+import React from "react";
 import Image from "next/image";
 
 import { commerce } from "../lib/commerce";
 import { useCartDispatch } from "../context/cart";
 
-function CartItem({ id, media, name, quantity, line_total }) {
+function CartItem({ id, media, name, quantity, line_total, variants }) {
   const { setCart } = useCartDispatch();
+  const hasVariants = variants.length >= 1;
 
   const handleUpdateCart = ({ cart }) => setCart(cart);
 
@@ -38,6 +40,16 @@ function CartItem({ id, media, name, quantity, line_total }) {
           <p className="font-serif text-xl md:text-2xl lg:text-3xl italic leading-none">
             {name}
           </p>
+          {hasVariants && (
+            <p>
+              {variants.map(({ variant_name, option_name }, index) => (
+                <React.Fragment key={index}>
+                  {index ? ", " : ""}
+                  {variant_name}: {option_name}
+                </React.Fragment>
+              ))}
+            </p>
+          )}
         </div>
         <div className="flex flex-col items-start md:items-end justify-between flex-grow">
           <div className="text-lg md:text-xl lg:text-2xl">
