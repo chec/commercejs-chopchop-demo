@@ -63,10 +63,7 @@ function ProductPage({ product }) {
   React.useEffect(() => {
     setTheme(product.permalink);
 
-    return () => {
-      setTheme("default");
-      setSelectedVariants(null);
-    };
+    return () => setTheme("default");
   }, [product.permalink]);
 
   const handleVariantChange = ({ target: { id, value } }) =>
