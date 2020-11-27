@@ -25,6 +25,9 @@ module.exports = {
     },
   },
   variants: {
-    fontStyle: ["responsive", "hover"],
+    extend: {
+      borderRadius: ["hover"],
+      fontStyle: ["hover"],
+    },
   },
 };
