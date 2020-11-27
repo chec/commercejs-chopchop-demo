@@ -43,8 +43,8 @@ export async function getStaticPaths() {
 function ProductPage({ product }) {
   const { setCart } = useCartDispatch();
   const { variants, assets, meta, related_products } = product;
-  const setTheme = useThemeDispatch();
   const images = assets.filter(({ is_image }) => is_image);
+  const setTheme = useThemeDispatch();
 
   const initialVariants = React.useMemo(
     () =>
@@ -61,6 +61,7 @@ function ProductPage({ product }) {
   );
 
   React.useEffect(() => {
+    setSelectedVariants(initialVariants);
     setTheme(product.permalink);
 
     return () => setTheme("default");
