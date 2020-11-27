@@ -59,14 +59,14 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
               <span className="pr-2">Quantity:</span>
               <button
                 onClick={decrementQuantity}
-                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none"
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
               >
                 -
               </button>
               <span className="px-2 md:text-lg">{quantity}</span>
               <button
                 onClick={incrementQuantity}
-                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none"
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
               >
                 +
               </button>
