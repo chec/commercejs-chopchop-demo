@@ -17,7 +17,7 @@ function FormInput({
   const isError = errors[name];
 
   const inputClass = cc([
-    "appearance-none bg-transparent placeholder-faded-black border focus:border-black rounded-md w-full",
+    "appearance-none bg-transparent placeholder-faded-black border focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1",
     { "border-faded-black": !isError, "border-red-500": isError },
   ]);
 
