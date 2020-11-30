@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { useCycle } from "framer-motion";
 
 import { commerce } from "../lib/commerce";
