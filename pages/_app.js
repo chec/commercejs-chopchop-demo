@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "../context/theme";
 import { CartProvider } from "../context/cart";
+import { CheckoutProvider } from "../context/checkout";
 
 import Cart from "../components/Cart";
 import Layout from "../components/Layout";
@@ -30,13 +31,15 @@ function MyApp({ Component, pageProps, router }) {
     <Elements stripe={stripePromise}>
       <ThemeProvider>
         <CartProvider>
-          <Cart />
-          <Layout>
-            <AnimatePresence initial={false} exitBeforeEnter>
-              <Component {...pageProps} key={router.route} />
-            </AnimatePresence>
-            <ToastContainer {...toastOptions} />
-          </Layout>
+          <CheckoutProvider>
+            <Cart />
+            <Layout>
+              <AnimatePresence initial={false} exitBeforeEnter>
+                <Component {...pageProps} key={router.route} />
+              </AnimatePresence>
+              <ToastContainer {...toastOptions} />
+            </Layout>
+          </CheckoutProvider>
         </CartProvider>
       </ThemeProvider>
     </Elements>
