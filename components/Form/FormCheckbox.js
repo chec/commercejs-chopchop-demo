@@ -15,7 +15,7 @@ function FormCheckbox({
   const isError = errors[name];
 
   const inputClass = cc([
-    "appearance-none bg-transparent border focus:border-black text-black rounded w-5 h-5",
+    "appearance-none bg-transparent border focus:border-black focus:outline-none text-black rounded w-5 h-5",
     {
       "border-faded-black": !isError,
       "border-red-500": isError,
