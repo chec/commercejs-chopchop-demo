@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 import { commerce } from "../../lib/commerce";
 import { useCartDispatch } from "../../context/cart";
@@ -76,7 +77,20 @@ function ProductPage({ product }) {
   const addToCart = () =>
     commerce.cart
       .add(product.id, 1, selectedVariants)
-      .then(({ cart }) => setCart(cart));
+      .then(({ cart }) => {
+        setCart(cart);
+
+        return cart;
+      })
+      .then(({ subtotal }) =>
+        toast(
+          `${product.name} is now in your cart. Your subtotal is now ${subtotal.formatted_with_symbol}`
+        )
+      )
+      .catch((err) => {
+        console.log(err);
+        toast.error("Please try again.");
+      });
 
   return (
     <React.Fragment>
