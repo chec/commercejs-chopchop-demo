@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 import { commerce } from "../lib/commerce";
 import { useCartDispatch } from "../context/cart";
@@ -8,21 +9,44 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
   const { setCart } = useCartDispatch();
   const hasVariants = variants.length >= 1;
 
-  const handleUpdateCart = ({ cart }) => setCart(cart);
+  const handleUpdateCart = ({ cart }) => {
+    setCart(cart);
+
+    return cart;
+  };
 
   const handleRemoveItem = () =>
-    commerce.cart.remove(id).then(handleUpdateCart);
+    commerce.cart
+      .remove(id)
+      .then(handleUpdateCart)
+      .then(({ subtotal }) =>
+        toast(
+          `${name} has been removed from your cart. Your new subtotal is now ${subtotal.formatted_with_symbol}`
+        )
+      );
 
   const decrementQuantity = () => {
     quantity > 1
       ? commerce.cart
           .update(id, { quantity: quantity - 1 })
           .then(handleUpdateCart)
+          .then(({ subtotal }) =>
+            toast(
+              `1 "${name}" has been removed from your cart. Your new subtotal is now ${subtotal.formatted_with_symbol}`
+            )
+          )
       : handleRemoveItem();
   };
 
   const incrementQuantity = () =>
-    commerce.cart.update(id, { quantity: quantity + 1 }).then(handleUpdateCart);
+    commerce.cart
+      .update(id, { quantity: quantity + 1 })
+      .then(handleUpdateCart)
+      .then(({ subtotal }) =>
+        toast(
+          `Another "${name}" has been added from your cart. Your new subtotal is now ${subtotal.formatted_with_symbol}`
+        )
+      );
 
   return (
     <div className="py-3 md:py-4 lg:py-5 flex md:items-end space-x-3 md:space-x-4 lg:space-x-5 border-b border-black">
