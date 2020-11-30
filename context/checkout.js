@@ -40,11 +40,12 @@ export const CheckoutProvider = ({ children }) => {
     }
   };
 
-  const setShippingMethod = async (shipping_option_id, country) => {
+  const setShippingMethod = async (shipping_option_id, country, region) => {
     try {
       const { live } = await commerce.checkout.checkShippingOption(state.id, {
         shipping_option_id,
         country,
+        ...(region && { region }),
       });
 
       dispatch({ type: SET_LIVE, payload: live });
