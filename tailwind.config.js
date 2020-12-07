@@ -21,7 +21,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["Inter", ...defaultTheme.fontFamily.sans],
-      serif: ["EB Garamond", ...defaultTheme.fontFamily.serif],
+      serif: ["'EB Garamond'", ...defaultTheme.fontFamily.serif],
     },
   },
   variants: {
