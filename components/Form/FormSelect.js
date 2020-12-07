@@ -1,7 +1,8 @@
 import { useFormContext } from "react-hook-form";
-import cc from "classcat";
 
 import Chevron from "../../svg/chevron.svg";
+
+import FormError from "./FormError";
 
 function FormSelect({
   label,
@@ -11,24 +12,18 @@ function FormSelect({
   validation = {},
   ...props
 }) {
-  const { errors, register } = useFormContext();
+  const { register } = useFormContext();
 
   const isRequired = required ? `${label || name} is required` : false;
-  const isError = errors[name];
-
-  const wrapperClass = cc([
-    "relative overflow-hidden border focus:border-black focus:outline-none rounded-md w-full",
-    { "border-faded-black": !isError, "border-red-500": isError },
-  ]);
 
   return (
-    <div className="py-1 md:py-2">
-      <div className={wrapperClass}>
+    <div className="py-2">
+      <div className="relative overflow-hidden border border-faded-black focus:border-black focus:outline-none rounded-md w-full">
         <select
           ref={register({ required: isRequired, ...validation })}
           id={name}
           name={name}
-          className="appearance-none w-full py-1 pr-6 pl-1.5 text-base placeholder-faded-black focus:outline-none"
+          className="appearance-none bg-transparent w-full py-1 pr-6 pl-1.5 text-base placeholder-faded-black focus:outline-none"
           {...props}
         >
           {options.map(({ value, label }) => (
@@ -43,11 +38,7 @@ function FormSelect({
         </div>
       </div>
 
-      {isError && (
-        <div className="py-2">
-          <FormError children={isError?.message} />
-        </div>
-      )}
+      <FormError name={name} />
     </div>
   );
 }
