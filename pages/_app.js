@@ -1,6 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
-
-import "../styles/tailwind.css";
+import "tailwindcss/tailwind.css";
 
 import { AnimatePresence } from "framer-motion";
 import { Elements } from "@stripe/react-stripe-js";
