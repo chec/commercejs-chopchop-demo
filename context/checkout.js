@@ -1,17 +1,26 @@
-import React from "react";
+import { createContext, useReducer, useContext } from "react";
 
 import { commerce } from "../lib/commerce";
 
-const CheckoutStateContext = React.createContext();
-const CheckoutDispatchContext = React.createContext();
+const CheckoutStateContext = createContext();
+const CheckoutDispatchContext = createContext();
 
+const SET_CURRENT_STEP = "SET_CURRENT_STEP";
 const SET_CHECKOUT = "SET_CHECKOUT";
 const SET_LIVE = "SET_LIVE";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case SET_CURRENT_STEP:
+      return {
+        ...state,
+        currentStep: action.payload,
+      };
     case SET_CHECKOUT:
-      return action.payload;
+      return {
+        ...state,
+        ...action.payload,
+      };
     case SET_LIVE:
       return { ...state, live: { ...state.live, ...action.payload } };
     default:
@@ -20,11 +29,11 @@ const reducer = (state, action) => {
 };
 
 const initialState = {
-  shipping_methods: [],
+  currentStep: "extrafields",
 };
 
 export const CheckoutProvider = ({ children }) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const generateToken = async (cartId) => {
     if (!cartId) return;
@@ -54,11 +63,15 @@ export const CheckoutProvider = ({ children }) => {
     }
   };
 
+  const setCurrentStep = (step) =>
+    dispatch({ type: SET_CURRENT_STEP, payload: step });
+
   return (
     <CheckoutDispatchContext.Provider
       value={{
         generateToken,
         setShippingMethod,
+        setCurrentStep,
       }}
     >
       <CheckoutStateContext.Provider value={state}>
@@ -68,6 +81,5 @@ export const CheckoutProvider = ({ children }) => {
   );
 };
 
-export const useCheckoutState = () => React.useContext(CheckoutStateContext);
-export const useCheckoutDispatch = () =>
-  React.useContext(CheckoutDispatchContext);
+export const useCheckoutState = () => useContext(CheckoutStateContext);
+export const useCheckoutDispatch = () => useContext(CheckoutDispatchContext);
