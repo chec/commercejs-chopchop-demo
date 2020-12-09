@@ -7,11 +7,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "../context/theme";
+import { ModalProvider } from "../context/modal";
 import { CartProvider } from "../context/cart";
 import { CheckoutProvider } from "../context/checkout";
 
-import Cart from "../components/Cart";
 import Layout from "../components/Layout";
+import Modal from "../components/Modal";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -29,17 +30,19 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <Elements stripe={stripePromise}>
       <ThemeProvider>
-        <CartProvider>
-          <CheckoutProvider>
-            <Cart />
-            <Layout>
-              <AnimatePresence initial={false} exitBeforeEnter>
-                <Component {...pageProps} key={router.route} />
-              </AnimatePresence>
-              <ToastContainer {...toastOptions} />
-            </Layout>
-          </CheckoutProvider>
-        </CartProvider>
+        <ModalProvider>
+          <CartProvider>
+            <CheckoutProvider>
+              <Modal />
+              <Layout>
+                <AnimatePresence initial={false} exitBeforeEnter>
+                  <Component {...pageProps} key={router.route} />
+                </AnimatePresence>
+                <ToastContainer {...toastOptions} />
+              </Layout>
+            </CheckoutProvider>
+          </CartProvider>
+        </ModalProvider>
       </ThemeProvider>
     </Elements>
   );
