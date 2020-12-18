@@ -66,12 +66,15 @@ export const CheckoutProvider = ({ children }) => {
   const setCurrentStep = (step) =>
     dispatch({ type: SET_CURRENT_STEP, payload: step });
 
+  const capture = (values) => commerce.checkout.capture(state.id, values);
+
   return (
     <CheckoutDispatchContext.Provider
       value={{
         generateToken,
         setShippingMethod,
         setCurrentStep,
+        capture,
       }}
     >
       <CheckoutStateContext.Provider value={state}>

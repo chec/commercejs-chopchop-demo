@@ -10,6 +10,7 @@ function FormSelect({
   options,
   required = false,
   validation = {},
+  placeholder,
   ...props
 }) {
   const { register } = useFormContext();
@@ -24,8 +25,13 @@ function FormSelect({
           id={name}
           name={name}
           className="appearance-none bg-transparent w-full py-1 pr-6 pl-1.5 text-base placeholder-faded-black focus:outline-none"
+          defaultValue=""
           {...props}
         >
+          <option disabled value="">
+            {placeholder || `Select a ${label}`}
+          </option>
+
           {options.map(({ value, label }) => (
             <option key={value} value={value}>
               {label || value}

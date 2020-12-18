@@ -9,7 +9,7 @@ export default function Cart() {
   const { showCheckout } = useModalDispatch();
 
   return (
-    <div className="h-full container mx-auto px-3 md:px-4 lg:px-5 flex flex-col justify-between">
+    <div className="h-full flex flex-col justify-between">
       <div>
         {line_items.map((item) => (
           <CartItem key={item.id} {...item} />

@@ -1,17 +1,8 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
 
-import { FormCheckbox, FormInput, FormSelect } from "../Form";
+import { FormInput, FormSelect } from "../Form";
 
-function AddressFields({
-  legend,
-  countries = {},
-  subdivisions = {},
-  override = false,
-}) {
-  const requiresInput = !!override;
-  const { watch } = useFormContext();
-
+function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
   const reducer = ([code, name]) => ({
     value: code,
     label: name,
@@ -25,67 +16,69 @@ function AddressFields({
     ? Object.entries(subdivisions).map(reducer)
     : [];
 
-  const watchOverride = watch("address.override", requiresInput);
-
   return (
-    <fieldset className="mb-3 md:mb-4">
-      {legend && (
-        <legend className="text-black font-medium text-lg md:text-xl py-3 block">
-          {legend}
-        </legend>
-      )}
-
-      {override && <FormCheckbox name="address.override" label={override} />}
-
-      {!watchOverride && (
-        <React.Fragment>
+    <React.Fragment>
+      <div className="md:flex md:items-start md:space-x-4">
+        <div className="md:w-1/2">
           <FormInput
-            label="Name"
-            name="address.name"
-            placeholder="Full name"
+            label="First name"
+            name={`${prefix}.firstname`}
+            placeholder="First name"
             required
           />
+        </div>
+        <div className="md:w-1/2">
           <FormInput
-            label="Address"
-            name="address.street"
-            placeholder="Address"
+            label="Last name"
+            name={`${prefix}.lastname`}
+            placeholder="Last name"
             required
           />
-          <FormInput
-            label="Town / City"
-            name="address.town_city"
-            placeholder="City"
-            required
-          />
+        </div>
+      </div>
 
-          <div className="md:flex md:items-start md:space-x-4">
-            <div className="md:w-1/3">
-              <FormSelect
-                label="Country"
-                name="address.country"
-                options={formattedCountries}
-                required
-              />
-            </div>
-            <div className="md:w-1/3">
-              <FormSelect
-                label="County / State"
-                name="address.region"
-                options={formattedSubdivisions}
-                required
-              />
-            </div>
-            <div className="md:w-1/3">
-              <FormInput
-                name="address.postal_zip_code"
-                placeholder="ZIP"
-                required
-              />
-            </div>
-          </div>
-        </React.Fragment>
-      )}
-    </fieldset>
+      <FormInput
+        label="Address"
+        name={`${prefix}.street`}
+        placeholder="Address"
+        required
+      />
+      <FormInput
+        label="Town / City"
+        name={`${prefix}.town_city`}
+        placeholder="City"
+        required
+      />
+
+      <div className="md:flex md:items-start md:space-x-4">
+        <div className="md:w-1/3">
+          <FormSelect
+            label="Country"
+            name={`${prefix}.country`}
+            options={formattedCountries}
+            placeholder="Select country"
+            required
+          />
+        </div>
+        <div className="md:w-1/3">
+          <FormSelect
+            label="County / State"
+            name={`${prefix}.region`}
+            options={formattedSubdivisions}
+            placeholder="Select region"
+            required
+          />
+        </div>
+        <div className="md:w-1/3">
+          <FormInput
+            label="ZIP / Postcode"
+            name={`${prefix}.postal_zip_code`}
+            placeholder="ZIP"
+            required
+          />
+        </div>
+      </div>
+    </React.Fragment>
   );
 }
 
