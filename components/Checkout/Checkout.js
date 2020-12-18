@@ -35,19 +35,19 @@ function Checkout({ cartId }) {
 
   const captureOrder = async (values) => {
     const {
-      billing: { firstname, lastname, region: county_state, ...billing },
+      customer,
       shipping,
+      billing: { firstname, lastname, region: county_state, ...billing },
       ...data
     } = values;
-    const { email = "hi_jamie@me.com" } = billing;
 
     try {
       const newOrder = await capture({
         ...data,
         customer: {
+          ...customer,
           firstname,
           lastname,
-          email,
         },
         ...(shipping && {
           shipping: {
