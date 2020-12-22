@@ -1,9 +1,12 @@
-import { useCheckoutState } from "../../context/checkout";
+import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import { FormInput } from "../Form";
 
 function ExtraFieldsForm() {
   const { extrafields } = useCheckoutState();
+  const { setCurrentStep, nextStepFrom } = useCheckoutDispatch();
+
+  if (extrafields.length === 0) setCurrentStep(nextStepFrom("extrafields"));
 
   return (
     <div className="md:flex md:space-x-12 lg:space-x-24">

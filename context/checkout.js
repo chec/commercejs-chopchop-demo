@@ -66,6 +66,16 @@ export const CheckoutProvider = ({ children }) => {
   const setCurrentStep = (step) =>
     dispatch({ type: SET_CURRENT_STEP, payload: step });
 
+  const nextStepFrom = (currentStep) => {
+    switch (currentStep) {
+      case "extrafields":
+        return state.collects.shipping_address ? "shipping" : "billing";
+      case "shipping":
+      default:
+        return "billing";
+    }
+  };
+
   const capture = (values) => commerce.checkout.capture(state.id, values);
 
   return (
@@ -74,6 +84,7 @@ export const CheckoutProvider = ({ children }) => {
         generateToken,
         setShippingMethod,
         setCurrentStep,
+        nextStepFrom,
         capture,
       }}
     >

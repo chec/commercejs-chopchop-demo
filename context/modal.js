@@ -34,6 +34,7 @@ export const ModalProvider = ({ children }) => {
   const closeModal = () => {
     toggle();
     document.body.classList.remove("overflow-hidden");
+    dispatch({ type: "SHOW_CART" });
   };
 
   const showCart = () => dispatch({ type: "SHOW_CART" });

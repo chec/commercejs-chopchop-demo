@@ -14,24 +14,19 @@ import LoadingSVG from "../../svg/loading.svg";
 
 function Checkout({ cartId }) {
   const [order, setOrder] = useState();
-  const { currentStep, id, live, collects } = useCheckoutState();
-  const { generateToken, setCurrentStep, capture } = useCheckoutDispatch();
+  const { currentStep, id, live } = useCheckoutState();
+  const {
+    generateToken,
+    setCurrentStep,
+    nextStepFrom,
+    capture,
+  } = useCheckoutDispatch();
   const methods = useForm({ shouldUnregister: false });
   const { handleSubmit } = methods;
 
   useEffect(() => {
     generateToken(cartId);
   }, [cartId]);
-
-  const nextStepFrom = ({ currentStep, collects }) => {
-    switch (currentStep) {
-      case "extrafields":
-        return collects.shipping_address ? "shipping" : "billing";
-      case "shipping":
-      default:
-        return "billing";
-    }
-  };
 
   const captureOrder = async (values) => {
     const {
@@ -82,7 +77,7 @@ function Checkout({ cartId }) {
   const onSubmit = (values) => {
     if (currentStep === "billing") return captureOrder(values);
 
-    return setCurrentStep(nextStepFrom({ currentStep, collects }));
+    return setCurrentStep(nextStepFrom(currentStep));
   };
 
   if (!id)
