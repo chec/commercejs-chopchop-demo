@@ -1,5 +1,4 @@
 import { useFormContext } from "react-hook-form";
-import cc from "classcat";
 
 function FormCheckbox({
   label,
@@ -9,18 +8,9 @@ function FormCheckbox({
   validation = {},
   ...props
 }) {
-  const { errors, register } = useFormContext();
+  const { register } = useFormContext();
 
   const isRequired = required ? `${label || name} is required` : false;
-  const isError = errors[name];
-
-  const inputClass = cc([
-    "appearance-none bg-transparent border focus:border-black text-black rounded w-5 h-5",
-    {
-      "border-faded-black": !isError,
-      "border-red-500": isError,
-    },
-  ]);
 
   return (
     <div className="py-1 md:py-2">
@@ -30,7 +20,7 @@ function FormCheckbox({
           id={name}
           name={name}
           type="checkbox"
-          className={inputClass}
+          className="appearance-none bg-transparent border border-faded-black focus:border-black focus:outline-none text-black rounded w-5 h-5"
           {...props}
         />
 

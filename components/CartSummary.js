@@ -1,11 +1,12 @@
-import { useCartState, useCartDispatch } from "../context/cart";
+import { useCartState } from "../context/cart";
+import { useModalDispatch } from "../context/modal";
 
 function CartSummary() {
   const { total_unique_items } = useCartState();
-  const { showCart } = useCartDispatch();
+  const { openModal } = useModalDispatch();
 
   return (
-    <button className="appearance-none" onClick={showCart}>
+    <button className="appearance-none" onClick={openModal}>
       Shopping Bag ({total_unique_items})
     </button>
   );

@@ -9,20 +9,22 @@
   },
   "dependencies": {
     "@chec/commerce.js": "2.2.0",
+    "@hookform/error-message": "0.0.5",
     "@stripe/react-stripe-js": "1.1.2",
     "@stripe/stripe-js": "1.11.0",
+    "autoprefixer": "10.0.4",
     "classcat": "4.1.0",
     "framer-motion": "2.9.4",
     "next": "10.0.2",
     "next-google-fonts": "1.2.1",
+    "postcss": "8.1.14",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "6.11.5",
-    "react-toastify": "^6.1.0"
+    "react-toastify": "6.1.0"
   },
   "devDependencies": {
     "babel-plugin-inline-react-svg": "1.1.2",
-    "postcss-preset-env": "6.7.0",
     "tailwindcss": "2.0.1"
   }
 }

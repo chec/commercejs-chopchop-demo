@@ -44,7 +44,7 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
       .then(handleUpdateCart)
       .then(({ subtotal }) =>
         toast(
-          `Another "${name}" has been added from your cart. Your new subtotal is now ${subtotal.formatted_with_symbol}`
+          `Another "${name}" has been added to your cart. Your new subtotal is now ${subtotal.formatted_with_symbol}`
         )
       );
 
