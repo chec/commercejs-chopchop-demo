@@ -28,6 +28,8 @@ function Button({ className, ...props }) {
     className,
   ]);
 
+  if (props.href) return <a {...props} className={buttonClass} />;
+
   return <button {...props} className={buttonClass} />;
 }
 
