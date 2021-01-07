@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
@@ -24,6 +25,9 @@ function Checkout({ cartId }) {
   const methods = useForm({ shouldUnregister: false });
   const { handleSubmit } = methods;
 
+  const stripe = useStripe();
+  const elements = useElements();
+
   useEffect(() => {
     generateToken(cartId);
   }, [cartId]);
@@ -35,6 +39,11 @@ function Checkout({ cartId }) {
       billing: { firstname, lastname, region: county_state, ...billing },
       ...data
     } = values;
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement("cardNumber"),
+    });
 
     try {
       const newOrder = await capture({
@@ -56,13 +65,9 @@ function Checkout({ cartId }) {
           county_state,
         },
         payment: {
-          gateway: "test_gateway",
-          card: {
-            number: "4242424242424242",
-            expiry_month: "12",
-            expiry_year: "22",
-            cvc: "123",
-            postal_zip_code: "NE42 5NY",
+          gateway: "stripe",
+          stripe: {
+            payment_method_id: paymentMethod.id,
           },
         },
       });

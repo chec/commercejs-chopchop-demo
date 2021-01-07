@@ -1,5 +1,10 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import {
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
 
 import { commerce } from "../../lib/commerce";
 
@@ -80,27 +85,25 @@ function BillingForm() {
               },
             }}
           />
-          {/* <div>
-            <CardNumberElement
-              onChange={handleCardNumberChange}
-              onReady={(el) => setValue("cardNumberElement", el)}
-            />
+          <div>
+            <CardNumberElement />
           </div>
+
           <div className="flex space-x-4">
             <div className="w-1/2">
               <CardExpiryElement
                 placeholder="Expiry"
-                onChange={handleCardExpiryChange}
-                onReady={(el) => setValue("cardExpiryElement", el)}
+                // onChange={handleCardExpiryChange}
+                // onReady={(el) => setValue("cardExpiryElement", el)}
               />
             </div>
             <div className="w-1/2">
               <CardCvcElement
-                onChange={handleCardCvcChange}
-                onReady={(el) => setValue("cardCvcElement", el)}
+              // onChange={handleCardCvcChange}
+              // onReady={(el) => setValue("cardCvcElement", el)}
               />
             </div>
-          </div> */}
+          </div>
           {/* <FormError name="stripe" /> */}
         </fieldset>
       </div>
