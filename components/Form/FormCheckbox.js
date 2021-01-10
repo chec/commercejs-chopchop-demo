@@ -20,7 +20,7 @@ function FormCheckbox({
           id={name}
           name={name}
           type="checkbox"
-          className="appearance-none bg-transparent border border-faded-black focus:border-black focus:outline-none text-black rounded w-5 h-5"
+          className="appearance-none bg-transparent checked:bg-black border border-faded-black checked:border-black hover:border-black focus:border-black focus:checked:outline-none focus:outline-none text-black rounded w-5 h-5"
           {...props}
         />
 

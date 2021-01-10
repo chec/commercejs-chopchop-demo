@@ -23,7 +23,7 @@ function Button({ className, ...props }) {
   const theme = useThemeState();
 
   const buttonClass = cc([
-    "appearance-none border-none py-0.5 px-1.5 md:px-2 text-lg md:text-xl rounded transition",
+    "appearance-none border-none py-0.5 px-1.5 md:px-2 text-lg md:text-xl rounded transition focus:outline-none",
     buttonStyle(theme),
     className,
   ]);

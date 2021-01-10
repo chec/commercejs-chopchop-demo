@@ -26,8 +26,11 @@ module.exports = {
   },
   variants: {
     extend: {
+      backgroundColor: ["checked"],
+      borderColor: ["checked"],
       borderRadius: ["hover"],
       fontStyle: ["hover"],
+      textColor: ["checked"],
     },
   },
 };
