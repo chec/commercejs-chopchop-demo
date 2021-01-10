@@ -1,6 +1,11 @@
+import cc from "classcat";
+
+import { useCheckoutState } from "../../context/checkout";
+
 import Button from "../Button";
 
 function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
+  const { processing } = useCheckoutState();
   const count = line_items.length;
 
   return (
@@ -24,7 +29,13 @@ function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
         <div className="w-full md:w-1/2 md:flex md:items-end md:justify-end">
           <Button
             type="submit"
-            className="appearance-none leading-none p-1 md:p-2 lg:p-3 text-lg md:text-xl"
+            className={cc([
+              "appearance-none leading-none p-1 md:p-2 lg:p-3 text-lg md:text-xl",
+              {
+                "opacity-75 cursor-not-allowed": processing,
+              },
+            ])}
+            disabled={processing}
           >
             Continue
           </Button>

@@ -1,10 +1,10 @@
-import React from "react";
+import { createContext, useReducer, useEffect, useContext } from "react";
 import { useCycle } from "framer-motion";
 
 import { commerce } from "../lib/commerce";
 
-const CartStateContext = React.createContext();
-const CartDispatchContext = React.createContext();
+const CartStateContext = createContext();
+const CartDispatchContext = createContext();
 
 const SET_CART = "SET_CART";
 
@@ -25,9 +25,9 @@ const reducer = (state, action) => {
 
 export const CartProvider = ({ children }) => {
   const [open, toggle] = useCycle(false, true);
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getCart();
   }, []);
 
@@ -62,5 +62,5 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-export const useCartState = () => React.useContext(CartStateContext);
-export const useCartDispatch = () => React.useContext(CartDispatchContext);
+export const useCartState = () => useContext(CartStateContext);
+export const useCartDispatch = () => useContext(CartDispatchContext);

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import {
   CardNumberElement,
@@ -12,18 +12,24 @@ import { FormInput } from "../Form";
 import AddressFields from "./AddressFields";
 
 function BillingForm() {
-  const [countries, setCountries] = React.useState();
-  const [subdivisions, setSubdivisions] = React.useState();
+  const [countries, setCountries] = useState();
+  const [subdivisions, setSubdivisions] = useState();
   const methods = useFormContext();
-  const { watch } = methods;
+  const { watch, setValue } = methods;
 
+  const shipping = watch("shipping");
   const watchCountry = watch("billing.country");
+  const billingIsShipping = watch("billingIsShipping");
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchCountries();
+
+    if (billingIsShipping) {
+      setValue("billing", shipping);
+    }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     watchCountry && fetchSubdivisions(watchCountry);
   }, [watchCountry]);
 
@@ -85,23 +91,28 @@ function BillingForm() {
               },
             }}
           />
-          <div>
-            <CardNumberElement />
-          </div>
 
-          <div className="flex space-x-4">
-            <div className="w-1/2">
-              <CardExpiryElement
-                placeholder="Expiry"
-                // onChange={handleCardExpiryChange}
-                // onReady={(el) => setValue("cardExpiryElement", el)}
-              />
+          <div className="space-y-3">
+            <div>
+              <CardNumberElement className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1" />
             </div>
-            <div className="w-1/2">
-              <CardCvcElement
-              // onChange={handleCardCvcChange}
-              // onReady={(el) => setValue("cardCvcElement", el)}
-              />
+
+            <div className="flex space-x-4">
+              <div className="w-1/2">
+                <CardExpiryElement
+                  placeholder="Expiry"
+                  className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1"
+                  // onChange={handleCardExpiryChange}
+                  // onReady={(el) => setValue("cardExpiryElement", el)}
+                />
+              </div>
+              <div className="w-1/2">
+                <CardCvcElement
+                  className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1"
+                  // onChange={handleCardCvcChange}
+                  // onReady={(el) => setValue("cardCvcElement", el)}
+                />
+              </div>
             </div>
           </div>
           {/* <FormError name="stripe" /> */}

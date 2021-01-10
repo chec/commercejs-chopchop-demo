@@ -21,8 +21,14 @@ function Checkout({ cartId }) {
     setCurrentStep,
     nextStepFrom,
     capture,
+    setProcessing,
   } = useCheckoutDispatch();
-  const methods = useForm({ shouldUnregister: false });
+  const methods = useForm({
+    shouldUnregister: false,
+    defaultValues: {
+      billingIsShipping: true,
+    },
+  });
   const { handleSubmit } = methods;
 
   const stripe = useStripe();
@@ -33,6 +39,8 @@ function Checkout({ cartId }) {
   }, [cartId]);
 
   const captureOrder = async (values) => {
+    setProcessing(true);
+
     const {
       customer,
       shipping,
@@ -43,27 +51,37 @@ function Checkout({ cartId }) {
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement("cardNumber"),
+      billing_details: {
+        name: `${shipping.firstname} ${shipping.lastname}`,
+        email: customer.email,
+      },
     });
+
+    console.log({ error, paymentMethod });
+
+    const checkoutPayload = {
+      ...data,
+      customer: {
+        ...customer,
+        firstname,
+        lastname,
+      },
+      ...(shipping && {
+        shipping: {
+          ...shipping,
+          name: `${shipping.firstname} ${shipping.lastname}`,
+        },
+      }),
+      billing: {
+        ...billing,
+        name: `${firstname} ${lastname}`,
+        county_state,
+      },
+    };
 
     try {
       const newOrder = await capture({
-        ...data,
-        customer: {
-          ...customer,
-          firstname,
-          lastname,
-        },
-        ...(shipping && {
-          shipping: {
-            ...shipping,
-            name: `${shipping.firstname} ${shipping.lastname}`,
-          },
-        }),
-        billing: {
-          ...billing,
-          name: `${firstname} ${lastname}`,
-          county_state,
-        },
+        ...checkoutPayload,
         payment: {
           gateway: "stripe",
           stripe: {
@@ -72,11 +90,50 @@ function Checkout({ cartId }) {
         },
       });
 
-      setOrder(newOrder);
-      setCurrentStep("success");
-    } catch (err) {
-      console.log(err);
+      handleOrderSuccess(newOrder);
+    } catch (res) {
+      if (
+        res.statusCode !== 402 ||
+        res.data.error.type !== "requires_verification"
+      ) {
+        console.log(data); // TODO: setError('checkout')
+        return;
+      }
+
+      const { error, paymentIntent } = await stripe.handleCardAction(
+        res.data.error.param
+      );
+
+      console.log({ paymentIntent });
+
+      if (error) {
+        console.log(error); // TODO: setError('stripe')
+        return;
+      }
+
+      try {
+        const newOrder = await capture({
+          ...checkoutPayload,
+          payment: {
+            gateway: "stripe",
+            stripe: {
+              payment_intent_id: paymentIntent.id,
+            },
+          },
+        });
+
+        handleOrderSuccess(newOrder);
+      } catch (err) {
+        console.log(error); // TODO: setError('stripe')
+      }
+    } finally {
+      setProcessing(false);
     }
+  };
+
+  const handleOrderSuccess = (order) => {
+    setOrder(order);
+    setCurrentStep("success");
   };
 
   const onSubmit = (values) => {
