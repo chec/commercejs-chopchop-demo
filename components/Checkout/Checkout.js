@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 
+import { useCartDispatch } from "../../context/cart";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import ExtraFieldsForm from "./ExtraFieldsForm";
@@ -11,10 +12,9 @@ import Success from "./Success";
 import CheckoutSummary from "./CheckoutSummary";
 import OrderSummary from "./OrderSummary";
 
-import LoadingSVG from "../../svg/loading.svg";
-
 function Checkout({ cartId }) {
   const [order, setOrder] = useState();
+  const { reset: resetCart } = useCartDispatch();
   const { currentStep, id, live } = useCheckoutState();
   const {
     generateToken,
@@ -139,6 +139,7 @@ function Checkout({ cartId }) {
   const handleOrderSuccess = (order) => {
     setOrder(order);
     setCurrentStep("success");
+    resetCart();
   };
 
   const onSubmit = (values) => {
@@ -150,9 +151,7 @@ function Checkout({ cartId }) {
   if (!id)
     return (
       <div className="h-full flex items-center justify-center">
-        <p className="text-black">
-          <LoadingSVG className="w-10 h-10" />
-        </p>
+        <p className="text-black">Preparing checkout</p>
       </div>
     );
 
@@ -165,7 +164,7 @@ function Checkout({ cartId }) {
         {currentStep === "extrafields" && <ExtraFieldsForm />}
         {currentStep === "shipping" && <ShippingForm />}
         {currentStep === "billing" && <BillingForm />}
-        {currentStep === "success" && <Success order={order} />}
+        {currentStep === "success" && <Success {...order} />}
 
         {order ? <OrderSummary {...order} /> : <CheckoutSummary {...live} />}
       </form>

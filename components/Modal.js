@@ -1,8 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useModalState, useModalDispatch } from "../context/modal";
+import { useCheckoutDispatch } from "../context/checkout";
 import { useCartState } from "../context/cart";
 
+import Breadcrumbs from "./Breadcrumbs";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
 
@@ -22,6 +24,12 @@ function CurrentStep({ step }) {
 function Modal() {
   const { open, step } = useModalState();
   const { closeModal } = useModalDispatch();
+  const { reset: resetCheckout } = useCheckoutDispatch();
+
+  const closeAndResetModal = () => {
+    closeModal();
+    resetCheckout();
+  };
 
   return (
     <AnimatePresence>
@@ -38,10 +46,11 @@ function Modal() {
           <div className="h-full container mx-auto px-3 md:px-4 lg:px-5 flex flex-col justify-between">
             <div>
               <div className="py-3 md:py-4 lg:py-5 flex items-center justify-between">
-                <span className="text-lg md:text-xl">Shopping Bag</span>
+                <Breadcrumbs inCart={step === "cart"} />
+
                 <button
                   className="appearance-none leading-none text-black p-1 -mr-1 focus:outline-none"
-                  onClick={closeModal}
+                  onClick={closeAndResetModal}
                 >
                   Close
                 </button>
