@@ -9,6 +9,12 @@ const SET_CURRENT_STEP = "SET_CURRENT_STEP";
 const SET_CHECKOUT = "SET_CHECKOUT";
 const SET_LIVE = "SET_LIVE";
 const SET_PROCESSING = "SET_PROCESSING";
+const RESET = "RESET";
+
+const initialState = {
+  currentStep: "extrafields",
+  processing: false,
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,14 +32,11 @@ const reducer = (state, action) => {
       return { ...state, live: { ...state.live, ...action.payload } };
     case SET_PROCESSING:
       return { ...state, processing: action.payload };
+    case RESET:
+      return initialState;
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
-};
-
-const initialState = {
-  currentStep: "extrafields",
-  processing: false,
 };
 
 export const CheckoutProvider = ({ children }) => {
@@ -85,6 +88,8 @@ export const CheckoutProvider = ({ children }) => {
   const setProcessing = (payload) =>
     dispatch({ type: SET_PROCESSING, payload });
 
+  const reset = () => dispatch({ type: RESET });
+
   return (
     <CheckoutDispatchContext.Provider
       value={{
@@ -94,6 +99,7 @@ export const CheckoutProvider = ({ children }) => {
         nextStepFrom,
         capture,
         setProcessing,
+        reset,
       }}
     >
       <CheckoutStateContext.Provider value={state}>

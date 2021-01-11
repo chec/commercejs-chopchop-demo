@@ -7,6 +7,7 @@ const CartStateContext = createContext();
 const CartDispatchContext = createContext();
 
 const SET_CART = "SET_CART";
+const RESET = "RESET";
 
 const initialState = {
   total_items: 0,
@@ -18,6 +19,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_CART:
       return { ...state, ...action.payload };
+    case RESET:
+      return initialState;
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
@@ -53,8 +56,12 @@ export const CartProvider = ({ children }) => {
     document.body.classList.remove("overflow-hidden");
   };
 
+  const reset = async () => dispatch({ type: RESET });
+
   return (
-    <CartDispatchContext.Provider value={{ setCart, showCart, closeCart }}>
+    <CartDispatchContext.Provider
+      value={{ setCart, showCart, closeCart, reset }}
+    >
       <CartStateContext.Provider value={{ open, ...state }}>
         {children}
       </CartStateContext.Provider>
