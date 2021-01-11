@@ -6,7 +6,7 @@ import { commerce } from "../../lib/commerce";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import AddressFields from "./AddressFields";
-import { FormCheckbox, FormSelect } from "../Form";
+import { FormSelect } from "../Form";
 
 function ShippingForm() {
   const { id } = useCheckoutState();
@@ -102,19 +102,13 @@ function ShippingForm() {
       <div className="md:w-1/2">
         <fieldset className="mb-3 md:mb-4">
           <legend className="text-black font-medium text-lg md:text-xl py-3 block">
-            Shipping
+            Shipping address
           </legend>
 
           <AddressFields
             prefix="shipping"
-            legend="Shipping Address"
             countries={countries}
             subdivisions={subdivisions}
-          />
-
-          <FormCheckbox
-            label="Billing same as shipping"
-            name="billingIsShipping"
           />
         </fieldset>
       </div>

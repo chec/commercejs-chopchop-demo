@@ -25,11 +25,8 @@ function Checkout({ cartId }) {
   } = useCheckoutDispatch();
   const methods = useForm({
     shouldUnregister: false,
-    defaultValues: {
-      billingIsShipping: true,
-    },
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -57,7 +54,11 @@ function Checkout({ cartId }) {
       },
     });
 
-    console.log({ error, paymentMethod });
+    if (error) {
+      setError("stripe", { type: "manual", message: error.message });
+      setProcessing(false);
+      return;
+    }
 
     const checkoutPayload = {
       ...data,
@@ -91,12 +92,17 @@ function Checkout({ cartId }) {
       });
 
       handleOrderSuccess(newOrder);
+      setProcessing(false);
     } catch (res) {
       if (
         res.statusCode !== 402 ||
         res.data.error.type !== "requires_verification"
       ) {
-        console.log(data); // TODO: setError('checkout')
+        setError("checkoutError", {
+          type: "manual",
+          message: res.data.error.message,
+        });
+        setProcessing(false);
         return;
       }
 
@@ -104,10 +110,9 @@ function Checkout({ cartId }) {
         res.data.error.param
       );
 
-      console.log({ paymentIntent });
-
       if (error) {
-        console.log(error); // TODO: setError('stripe')
+        setError("stripe", { type: "manual", message: error.message });
+        setProcessing(false);
         return;
       }
 
@@ -123,11 +128,11 @@ function Checkout({ cartId }) {
         });
 
         handleOrderSuccess(newOrder);
+        setProcessing(false);
       } catch (err) {
-        console.log(error); // TODO: setError('stripe')
+        setError("stripe", { type: "manual", message: error.message });
+        setProcessing(false);
       }
-    } finally {
-      setProcessing(false);
     }
   };
 

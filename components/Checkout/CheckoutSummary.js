@@ -2,6 +2,7 @@ import cc from "classcat";
 
 import { useCheckoutState } from "../../context/checkout";
 
+import { FormError } from "../Form";
 import Button from "../Button";
 
 function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
@@ -27,18 +28,21 @@ function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
           </ol>
         </div>
         <div className="w-full md:w-1/2 md:flex md:items-end md:justify-end">
-          <Button
-            type="submit"
-            className={cc([
-              "appearance-none leading-none p-1 md:p-2 lg:p-3 text-lg md:text-xl",
-              {
-                "opacity-75 cursor-not-allowed": processing,
-              },
-            ])}
-            disabled={processing}
-          >
-            Continue
-          </Button>
+          <div className="flex items-center space-x-3">
+            <FormError name="checkoutError" />
+            <Button
+              type="submit"
+              className={cc([
+                "appearance-none leading-none p-1 md:p-2 lg:p-3 text-lg md:text-xl",
+                {
+                  "opacity-75 cursor-not-allowed": processing,
+                },
+              ])}
+              disabled={processing}
+            >
+              {processing ? "Processing order" : "Continue"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

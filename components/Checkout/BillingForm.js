@@ -8,7 +8,7 @@ import {
 
 import { commerce } from "../../lib/commerce";
 
-import { FormInput } from "../Form";
+import { FormCheckbox, FormInput, FormError } from "../Form";
 import AddressFields from "./AddressFields";
 
 function BillingForm() {
@@ -19,14 +19,9 @@ function BillingForm() {
 
   const shipping = watch("shipping");
   const watchCountry = watch("billing.country");
-  const billingIsShipping = watch("billingIsShipping");
 
   useEffect(() => {
     fetchCountries();
-
-    if (billingIsShipping) {
-      setValue("billing", shipping);
-    }
   }, []);
 
   useEffect(() => {
@@ -60,12 +55,19 @@ function BillingForm() {
       <div className="md:w-1/2">
         <fieldset className="mb-3 md:mb-4">
           <legend className="text-black font-medium text-lg md:text-xl py-3 block">
-            Billing
+            Billing address
           </legend>
+
+          <FormCheckbox
+            label="Same as shipping address"
+            name="billingIsShipping"
+            onChange={({ target: { checked } }) =>
+              checked && setValue("billing", shipping)
+            }
+          />
 
           <AddressFields
             prefix="billing"
-            legend="Billing Address"
             countries={countries}
             subdivisions={subdivisions}
           />
@@ -115,7 +117,7 @@ function BillingForm() {
               </div>
             </div>
           </div>
-          {/* <FormError name="stripe" /> */}
+          <FormError name="stripe" />
         </fieldset>
       </div>
     </div>

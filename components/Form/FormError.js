@@ -7,7 +7,7 @@ function FormError({ className, ...props }) {
       <ErrorMessage
         {...props}
         render={({ message }) => (
-          <span className={cc(["text-black text-sm", className])} {...props}>
+          <span className={cc(["text-red-500 text-sm", className])} {...props}>
             {message}
           </span>
         )}
