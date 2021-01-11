@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { commerce } from "../../lib/commerce";
@@ -11,9 +11,9 @@ import { FormSelect } from "../Form";
 function ShippingForm() {
   const { id } = useCheckoutState();
   const { setShippingMethod } = useCheckoutDispatch();
-  const [countries, setCountries] = React.useState();
-  const [subdivisions, setSubdivisions] = React.useState();
-  const [shippingOptions, setShippingOptions] = React.useState([]);
+  const [countries, setCountries] = useState();
+  const [subdivisions, setSubdivisions] = useState();
+  const [shippingOptions, setShippingOptions] = useState([]);
   const methods = useFormContext();
   const { watch, setValue } = methods;
 
@@ -21,11 +21,11 @@ function ShippingForm() {
   const watchSubdivision = watch("shipping.region");
   const watchShippingMethod = watch("fulfillment.shipping_method");
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchCountries(id);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValue("shipping.region", "");
 
     if (watchCountry) {
@@ -34,13 +34,13 @@ function ShippingForm() {
     }
   }, [watchCountry]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (watchSubdivision) {
       fetchShippingOptions(id, watchCountry, watchSubdivision);
     }
   }, [watchSubdivision]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     watchShippingMethod && selectShippingMethod(watchShippingMethod);
   }, [watchShippingMethod]);
 
@@ -102,12 +102,11 @@ function ShippingForm() {
       <div className="md:w-1/2">
         <fieldset className="mb-3 md:mb-4">
           <legend className="text-black font-medium text-lg md:text-xl py-3 block">
-            Shipping
+            Shipping address
           </legend>
 
           <AddressFields
             prefix="shipping"
-            legend="Shipping Address"
             countries={countries}
             subdivisions={subdivisions}
           />

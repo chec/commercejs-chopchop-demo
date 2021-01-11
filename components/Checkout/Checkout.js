@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
@@ -20,15 +21,23 @@ function Checkout({ cartId }) {
     setCurrentStep,
     nextStepFrom,
     capture,
+    setProcessing,
   } = useCheckoutDispatch();
-  const methods = useForm({ shouldUnregister: false });
-  const { handleSubmit } = methods;
+  const methods = useForm({
+    shouldUnregister: false,
+  });
+  const { handleSubmit, setError } = methods;
+
+  const stripe = useStripe();
+  const elements = useElements();
 
   useEffect(() => {
     generateToken(cartId);
   }, [cartId]);
 
   const captureOrder = async (values) => {
+    setProcessing(true);
+
     const {
       customer,
       shipping,
@@ -36,42 +45,100 @@ function Checkout({ cartId }) {
       ...data
     } = values;
 
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement("cardNumber"),
+      billing_details: {
+        name: `${shipping.firstname} ${shipping.lastname}`,
+        email: customer.email,
+      },
+    });
+
+    if (error) {
+      setError("stripe", { type: "manual", message: error.message });
+      setProcessing(false);
+      return;
+    }
+
+    const checkoutPayload = {
+      ...data,
+      customer: {
+        ...customer,
+        firstname,
+        lastname,
+      },
+      ...(shipping && {
+        shipping: {
+          ...shipping,
+          name: `${shipping.firstname} ${shipping.lastname}`,
+        },
+      }),
+      billing: {
+        ...billing,
+        name: `${firstname} ${lastname}`,
+        county_state,
+      },
+    };
+
     try {
       const newOrder = await capture({
-        ...data,
-        customer: {
-          ...customer,
-          firstname,
-          lastname,
-        },
-        ...(shipping && {
-          shipping: {
-            ...shipping,
-            name: `${shipping.firstname} ${shipping.lastname}`,
-          },
-        }),
-        billing: {
-          ...billing,
-          name: `${firstname} ${lastname}`,
-          county_state,
-        },
+        ...checkoutPayload,
         payment: {
-          gateway: "test_gateway",
-          card: {
-            number: "4242424242424242",
-            expiry_month: "12",
-            expiry_year: "22",
-            cvc: "123",
-            postal_zip_code: "NE42 5NY",
+          gateway: "stripe",
+          stripe: {
+            payment_method_id: paymentMethod.id,
           },
         },
       });
 
-      setOrder(newOrder);
-      setCurrentStep("success");
-    } catch (err) {
-      console.log(err);
+      handleOrderSuccess(newOrder);
+      setProcessing(false);
+    } catch (res) {
+      if (
+        res.statusCode !== 402 ||
+        res.data.error.type !== "requires_verification"
+      ) {
+        setError("checkoutError", {
+          type: "manual",
+          message: res.data.error.message,
+        });
+        setProcessing(false);
+        return;
+      }
+
+      const { error, paymentIntent } = await stripe.handleCardAction(
+        res.data.error.param
+      );
+
+      if (error) {
+        setError("stripe", { type: "manual", message: error.message });
+        setProcessing(false);
+        return;
+      }
+
+      try {
+        const newOrder = await capture({
+          ...checkoutPayload,
+          payment: {
+            gateway: "stripe",
+            stripe: {
+              payment_intent_id: paymentIntent.id,
+            },
+          },
+        });
+
+        handleOrderSuccess(newOrder);
+        setProcessing(false);
+      } catch (err) {
+        setError("stripe", { type: "manual", message: error.message });
+        setProcessing(false);
+      }
     }
+  };
+
+  const handleOrderSuccess = (order) => {
+    setOrder(order);
+    setCurrentStep("success");
   };
 
   const onSubmit = (values) => {

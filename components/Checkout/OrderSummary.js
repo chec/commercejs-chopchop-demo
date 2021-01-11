@@ -26,7 +26,7 @@ function CheckoutSummary({ has, fulfillment, order }) {
         {has.digital_fulfillment && (
           <div className="w-full md:w-1/2 md:flex md:items-end md:justify-end space-y-3 md:space-y-0 md:space-x-3">
             {fulfillment.digital.downloads.map((download) => (
-              <div className="space-y-3 md:space-y-0 md:space-x-3">
+              <div className="md:flex space-y-3 md:space-y-0 md:space-x-3">
                 {download.packages.map(({ access_link, name }) => (
                   <Button
                     href={access_link}

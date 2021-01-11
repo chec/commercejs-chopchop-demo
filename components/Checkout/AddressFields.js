@@ -58,6 +58,7 @@ function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
             options={formattedCountries}
             placeholder="Select country"
             required
+            disabled={formattedCountries.length === 0}
           />
         </div>
         <div className="md:w-1/3">
@@ -67,6 +68,7 @@ function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
             options={formattedSubdivisions}
             placeholder="Select region"
             required
+            disabled={formattedSubdivisions.length === 0}
           />
         </div>
         <div className="md:w-1/3">

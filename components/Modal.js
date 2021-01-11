@@ -40,7 +40,7 @@ function Modal() {
               <div className="py-3 md:py-4 lg:py-5 flex items-center justify-between">
                 <span className="text-lg md:text-xl">Shopping Bag</span>
                 <button
-                  className="appearance-none leading-none text-black p-1 -mr-1"
+                  className="appearance-none leading-none text-black p-1 -mr-1 focus:outline-none"
                   onClick={closeModal}
                 >
                   Close
