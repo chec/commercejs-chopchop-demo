@@ -57,6 +57,7 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
           layout="fill"
           className="object-cover rounded-lg hover:rounded-none transition-all"
           loading="eager"
+          priority={true}
         />
       </div>
       <div className="flex flex-col md:flex-row md:items-end flex-grow">
