@@ -12,6 +12,8 @@ import Success from "./Success";
 import CheckoutSummary from "./CheckoutSummary";
 import OrderSummary from "./OrderSummary";
 
+import LoadingSVG from "../../svg/loading.svg";
+
 function Checkout({ cartId }) {
   const [order, setOrder] = useState();
   const { reset: resetCart } = useCartDispatch();
@@ -150,7 +152,8 @@ function Checkout({ cartId }) {
 
   if (!id)
     return (
-      <div className="h-full flex items-center justify-center">
+      <div className="h-full flex flex-col items-center justify-center space-y-6">
+        <LoadingSVG className="w-10 md:w-16 fill-current" />
         <p className="text-black">Preparing checkout</p>
       </div>
     );
