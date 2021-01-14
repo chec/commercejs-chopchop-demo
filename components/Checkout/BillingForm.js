@@ -11,6 +11,18 @@ import { commerce } from "../../lib/commerce";
 import { FormCheckbox, FormInput, FormError } from "../Form";
 import AddressFields from "./AddressFields";
 
+const style = {
+  base: {
+    "::placeholder": {
+      color: "rgba(21,7,3,0.3)",
+    },
+    color: "#150703",
+    fontSize: "16px",
+    fontFamily: `Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
+    iconColor: "#6B7280",
+  },
+};
+
 function BillingForm() {
   const [countries, setCountries] = useState();
   const [subdivisions, setSubdivisions] = useState();
@@ -96,23 +108,24 @@ function BillingForm() {
 
           <div className="space-y-3">
             <div>
-              <CardNumberElement className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1" />
+              <CardNumberElement
+                options={{ style }}
+                className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full p-1.5"
+              />
             </div>
 
             <div className="flex space-x-4">
               <div className="w-1/2">
                 <CardExpiryElement
+                  options={{ style }}
                   placeholder="Expiry"
-                  className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1"
-                  // onChange={handleCardExpiryChange}
-                  // onReady={(el) => setValue("cardExpiryElement", el)}
+                  className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full p-1.5"
                 />
               </div>
               <div className="w-1/2">
                 <CardCvcElement
-                  className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1"
-                  // onChange={handleCardCvcChange}
-                  // onReady={(el) => setValue("cardCvcElement", el)}
+                  options={{ style }}
+                  className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full p-1.5"
                 />
               </div>
             </div>

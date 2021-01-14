@@ -28,7 +28,17 @@ const toastOptions = {
 
 function MyApp({ Component, pageProps, router }) {
   return (
-    <Elements stripe={stripePromise}>
+    <Elements
+      stripe={stripePromise}
+      options={{
+        fonts: [
+          {
+            cssSrc:
+              "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap",
+          },
+        ],
+      }}
+    >
       <ThemeProvider>
         <ModalProvider>
           <CartProvider>

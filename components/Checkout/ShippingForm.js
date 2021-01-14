@@ -6,7 +6,7 @@ import { commerce } from "../../lib/commerce";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import AddressFields from "./AddressFields";
-import { FormSelect } from "../Form";
+import { FormCheckbox as FormRadio, FormError } from "../Form";
 
 function ShippingForm() {
   const { id } = useCheckoutState();
@@ -19,7 +19,6 @@ function ShippingForm() {
 
   const watchCountry = watch("shipping.country");
   const watchSubdivision = watch("shipping.region");
-  const watchShippingMethod = watch("fulfillment.shipping_method");
 
   useEffect(() => {
     fetchCountries(id);
@@ -39,10 +38,6 @@ function ShippingForm() {
       fetchShippingOptions(id, watchCountry, watchSubdivision);
     }
   }, [watchSubdivision]);
-
-  useEffect(() => {
-    watchShippingMethod && selectShippingMethod(watchShippingMethod);
-  }, [watchShippingMethod]);
 
   const fetchCountries = async (checkoutId) => {
     try {
@@ -74,6 +69,8 @@ function ShippingForm() {
   const fetchShippingOptions = async (checkoutId, country, region) => {
     if (!checkoutId && !country) return;
 
+    setValue("fulfillment.shipping_method", null);
+
     try {
       const shippingOptions = await commerce.checkout.getShippingOptions(
         checkoutId,
@@ -84,10 +81,20 @@ function ShippingForm() {
       );
 
       setShippingOptions(shippingOptions);
+
+      if (shippingOptions.length === 1) {
+        const [shippingOption] = shippingOptions;
+
+        setValue("fulfillment.shipping_method", shippingOption.id);
+        selectShippingMethod(shippingOption.id);
+      }
     } catch (err) {
       console.log(err);
     }
   };
+
+  const onShippingSelect = ({ target: { value } }) =>
+    selectShippingMethod(value);
 
   const selectShippingMethod = async (optionId) => {
     try {
@@ -119,17 +126,34 @@ function ShippingForm() {
           </legend>
           <div>
             {watchCountry ? (
-              <FormSelect
-                label="Choose a shipping method"
-                name="fulfillment.shipping_method"
-                options={shippingOptions.map(({ id, description, price }) => ({
-                  value: id,
-                  label: `${description}: ${price.formatted_with_symbol}`,
-                }))}
-                placeholder="Select shipping method"
-                required="You must select a shipping method."
-              />
+              <>
+                <div className="-space-y-1">
+                  {shippingOptions.map(({ id, description, price }) => (
+                    <FormRadio
+                      id={id}
+                      type="radio"
+                      name="fulfillment.shipping_method"
+                      value={id}
+                      label={`${description}: ${price.formatted_with_symbol}`}
+                      onChange={onShippingSelect}
+                      required="You must select a shipping option"
+                    />
+                  ))}
+                </div>
+
+                <FormError name="fulfillment.shipping_method" />
+              </>
             ) : (
+              // <FormSelect
+              //   label="Choose a shipping method"
+              //   name="fulfillment.shipping_method"
+              //   options={shippingOptions.map(({ id, description, price }) => ({
+              //     value: id,
+              //     label: `${description}: ${price.formatted_with_symbol}`,
+              //   }))}
+              //   placeholder="Select shipping method"
+              //   required="You must select a shipping method."
+              // />
               <p className="text-sm text-black">
                 Please enter your address to fetch shipping options
               </p>

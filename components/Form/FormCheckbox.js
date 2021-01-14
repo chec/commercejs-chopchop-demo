@@ -6,21 +6,29 @@ function FormCheckbox({
   name,
   required = false,
   validation = {},
+
   ...props
 }) {
   const { register } = useFormContext();
 
-  const isRequired = required ? `${label || name} is required` : false;
+  const isRequired = required
+    ? typeof required === "boolean"
+      ? `${label || name} is required`
+      : required
+    : false;
 
   return (
     <div className="py-1 md:py-2">
-      <label htmlFor={name} className="flex items-center cursor-pointer w-full">
+      <label
+        htmlFor={props.id || name}
+        className="flex items-center cursor-pointer w-full"
+      >
         <input
           ref={register({ required: isRequired, ...validation })}
-          id={name}
+          id={props.id || name}
           name={name}
           type="checkbox"
-          className="appearance-none bg-transparent checked:bg-black border border-faded-black checked:border-black hover:border-black focus:border-black focus:checked:outline-none focus:outline-none text-black rounded w-5 h-5"
+          className="appearance-none bg-transparent checked:bg-black border border-faded-black checked:border-black hover:border-black focus:border-black focus:checked:outline-none focus:outline-none text-black rounded w-5 h-5 cursor-pointer"
           {...props}
         />
 
