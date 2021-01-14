@@ -144,16 +144,6 @@ function ShippingForm() {
                 <FormError name="fulfillment.shipping_method" />
               </>
             ) : (
-              // <FormSelect
-              //   label="Choose a shipping method"
-              //   name="fulfillment.shipping_method"
-              //   options={shippingOptions.map(({ id, description, price }) => ({
-              //     value: id,
-              //     label: `${description}: ${price.formatted_with_symbol}`,
-              //   }))}
-              //   placeholder="Select shipping method"
-              //   required="You must select a shipping method."
-              // />
               <p className="text-sm text-black">
                 Please enter your address to fetch shipping options
               </p>
