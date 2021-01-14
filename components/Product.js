@@ -20,6 +20,7 @@ function Product({ media, name, permalink, price, className }) {
               quality={100}
               loading="eager"
               className="object-cover"
+              priority={true}
             />
           </div>
         )}
