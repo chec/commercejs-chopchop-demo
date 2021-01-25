@@ -22,7 +22,7 @@ const toastOptions = {
   position: "bottom-center",
   draggable: false,
   hideProgressBar: true,
-  className: "w-full md:max-w-2xl",
+  className: "w-full md:max-w-xl",
   toastClassName: "bg-ecru-white rounded-lg text-black px-3 shadow-md",
 };
 
