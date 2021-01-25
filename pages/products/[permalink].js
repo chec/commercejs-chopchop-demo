@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { commerce } from "../../lib/commerce";
 import { useCartDispatch } from "../../context/cart";
 import { useThemeDispatch } from "../../context/theme";
+import { useModalDispatch } from "../../context/modal";
 
 import Header from "../../components/Header";
 import Button from "../../components/Button";
@@ -46,6 +47,7 @@ function ProductPage({ product }) {
   const { variants, assets, meta, related_products } = product;
   const images = assets.filter(({ is_image }) => is_image);
   const setTheme = useThemeDispatch();
+  const { openModal } = useModalDispatch();
 
   const initialVariants = React.useMemo(
     () =>
@@ -84,7 +86,10 @@ function ProductPage({ product }) {
       })
       .then(({ subtotal }) =>
         toast(
-          `${product.name} is now in your cart. Your subtotal is now ${subtotal.formatted_with_symbol}`
+          `${product.name} is now in your cart. Your subtotal is now ${subtotal.formatted_with_symbol}. Click to view what's in your cart.`,
+          {
+            onClick: openModal,
+          }
         )
       )
       .catch((err) => {
