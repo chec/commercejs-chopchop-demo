@@ -20,6 +20,7 @@ Chop Chop is built with the following technologies:
 * [Next.js](https://nextjs.org/)
 * [Commerce.js](https://commercejs.com)
 * [Tailwind CSS](https://tailwindcss.com/)
+* [Stripe](https://stripe.com)
 
 ## Live demo
 

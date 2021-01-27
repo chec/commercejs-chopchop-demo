@@ -18,6 +18,12 @@ module.exports = {
       height: {
         112: "28rem",
       },
+      rotate: {
+        '-25': '-25deg',
+      },
+      boxShadow: {
+        'thank-you': '-2.63365px 5.92572px 8.55938px rgba(0, 0, 0, 0.25)',
+      },
     },
     fontFamily: {
       sans: ["Inter", ...defaultTheme.fontFamily.sans],
