@@ -33,13 +33,23 @@ function Footer() {
               <a className="text-black">Shop</a>
             </Link>
             ,
-            <Link href="/">
-              <a className="text-black">About</a>
-            </Link>
+            <a
+              href="https://github.com/chec/commercejs-chopchop-demo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black"
+            >
+              About
+            </a>
             ,
-            <Link href="/">
-              <a className="text-black">Contact</a>
-            </Link>
+            <a
+              href="https://twitter.com/commercejs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black"
+            >
+              Contact
+            </a>
             ,
             <Link href="/">
               <a className="text-black">Legal</a>
@@ -48,7 +58,7 @@ function Footer() {
             <Link href="/">
               <a className="text-black">Privacy</a>
             </Link>
-            ,<span>&copy; 2020</span>
+            ,<span>&copy; 2021</span>
             <p className="hidden md:block italic font-serif">
               Fine tools for thoughtful cooks
             </p>
