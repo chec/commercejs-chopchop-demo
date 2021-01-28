@@ -51,7 +51,7 @@ function Checkout({ cartId }) {
       type: "card",
       card: elements.getElement("cardNumber"),
       billing_details: {
-        name: `${shipping.firstname} ${shipping.lastname}`,
+        name: `${billing.firstname} ${billing.lastname}`,
         email: customer.email,
       },
     });
