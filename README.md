@@ -37,6 +37,7 @@ to install sample data into your account. To install the Chec CLI, run `npm inst
 * Install the Chop Chop demo store: `chec demo-store`
   * Choose "Chop Chop demo store (Next.js)" from the list
   * This will install dependencies and sample data, then start your dev server
+  * Stop the server, open `.env.local` and add your `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` for using Stripe, then re-run `npm run dev`
 * Open [http://localhost:3000](http://localhost:3000) and get started!
 
 ### Manual installation
