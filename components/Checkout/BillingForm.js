@@ -8,6 +8,8 @@ import {
 
 import { commerce } from "../../lib/commerce";
 
+import { useCheckoutDispatch } from "../../context/checkout";
+
 import { FormCheckbox, FormInput, FormError } from "../Form";
 import AddressFields from "./AddressFields";
 
@@ -27,6 +29,8 @@ function BillingForm() {
   const [countries, setCountries] = useState();
   const [subdivisions, setSubdivisions] = useState();
   const methods = useFormContext();
+  const { setError } = useCheckoutDispatch();
+
   const { watch, setValue, clearErrors } = methods;
 
   const shipping = watch("shipping");
@@ -64,7 +68,7 @@ function BillingForm() {
 
   const onStripeChange = () => {
     clearErrors("stripe");
-    clearErrors("checkoutError");
+    setError(null);
   };
 
   return (

@@ -2,11 +2,10 @@ import cc from "classcat";
 
 import { useCheckoutState } from "../../context/checkout";
 
-import { FormError } from "../Form";
 import Button from "../Button";
 
 function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
-  const { processing } = useCheckoutState();
+  const { processing, error } = useCheckoutState();
   const count = line_items.length;
 
   return (
@@ -29,7 +28,7 @@ function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
         </div>
         <div className="w-full md:w-1/2 md:flex md:items-end md:justify-end">
           <div className="flex items-center space-x-3">
-            <FormError name="checkoutError" />
+            {error && <span className="text-red-500 text-sm">{error}</span>}
             <Button
               type="submit"
               className={cc([
