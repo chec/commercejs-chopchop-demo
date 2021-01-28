@@ -9,11 +9,13 @@ const SET_CURRENT_STEP = "SET_CURRENT_STEP";
 const SET_CHECKOUT = "SET_CHECKOUT";
 const SET_LIVE = "SET_LIVE";
 const SET_PROCESSING = "SET_PROCESSING";
+const SET_ERROR = "SET_ERROR";
 const RESET = "RESET";
 
 const initialState = {
   currentStep: "extrafields",
   processing: false,
+  error: null,
 };
 
 const reducer = (state, action) => {
@@ -32,6 +34,8 @@ const reducer = (state, action) => {
       return { ...state, live: { ...state.live, ...action.payload } };
     case SET_PROCESSING:
       return { ...state, processing: action.payload };
+    case SET_ERROR:
+      return { ...state, error: action.payload };
     case RESET:
       return initialState;
     default:
@@ -88,6 +92,8 @@ export const CheckoutProvider = ({ children }) => {
   const setProcessing = (payload) =>
     dispatch({ type: SET_PROCESSING, payload });
 
+  const setError = (payload) => dispatch({ type: SET_ERROR, payload });
+
   const reset = () => dispatch({ type: RESET });
 
   return (
@@ -99,6 +105,7 @@ export const CheckoutProvider = ({ children }) => {
         nextStepFrom,
         capture,
         setProcessing,
+        setError,
         reset,
       }}
     >
