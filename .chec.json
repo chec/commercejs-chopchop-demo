@@ -1,0 +1,10 @@
+{
+  "npm": "npm",
+  "buildScripts": ["seed", "dev"],
+  "dotenv": {
+    "NODE_ENV": "development",
+    "NEXT_PUBLIC_CHEC_PUBLIC_API_KEY": "%chec_pkey%",
+    "CHEC_API_URL": "%chec_api_url%",
+    "CHEC_SECRET_KEY": "%chec_skey%"
+  }
+}
