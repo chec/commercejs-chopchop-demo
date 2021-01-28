@@ -32,7 +32,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   const closeModal = () => {
-    toggle();
+    toggle(0);
     document.body.classList.remove("overflow-hidden");
     dispatch({ type: "SHOW_CART" });
   };
