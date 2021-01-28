@@ -7,7 +7,6 @@
       "category_id": "categories[2].id"
     },
     "collect": {
-      "shipping": true,
       "billing": true,
       "fullname": true
     },
@@ -45,7 +44,6 @@
       "category_id": "categories[2].id"
     },
     "collect": {
-      "shipping": true,
       "billing": true,
       "fullname": true
     },
@@ -82,7 +80,6 @@
       }
     ],
     "collect": {
-      "shipping": true,
       "billing": true,
       "fullname": true
     },
@@ -99,7 +96,6 @@
       "category_id": "categories[0].id"
     },
     "collect": {
-      "shipping": true,
       "billing": true,
       "fullname": true
     },
@@ -113,9 +109,6 @@
       "name": "Tote bag",
       "price": "0.00",
       "active": false
-    },
-    "collect": {
-      "shipping": true
     }
   }
 ]
