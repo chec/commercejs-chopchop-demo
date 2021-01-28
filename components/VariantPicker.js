@@ -10,7 +10,7 @@ function VariantPicker({ variants = [], defaultValues = {}, ...props }) {
       {variants.map(({ options, ...variant }) => (
         <div
           key={variant.id}
-          className="rounded border border-black py-1 px-2 relative w-32"
+          className="rounded border border-black relative w-32 overflow-hidden"
         >
           <label htmlFor={variant.id} className="sr-only">
             {variant.name}:
@@ -19,7 +19,7 @@ function VariantPicker({ variants = [], defaultValues = {}, ...props }) {
           <select
             id={variant.id}
             defaultValue={defaultValues[variant.id]}
-            className="appearance-none leading-none block w-full pr-6"
+            className="appearance-none leading-none block w-full py-1 pr-6 pl-2"
             {...props}
           >
             {options.map((option) => (
