@@ -8,6 +8,8 @@ import {
 
 import { commerce } from "../../lib/commerce";
 
+import { useCheckoutDispatch } from "../../context/checkout";
+
 import { FormCheckbox, FormInput, FormError } from "../Form";
 import AddressFields from "./AddressFields";
 
@@ -27,7 +29,9 @@ function BillingForm() {
   const [countries, setCountries] = useState();
   const [subdivisions, setSubdivisions] = useState();
   const methods = useFormContext();
-  const { watch, setValue } = methods;
+  const { setError } = useCheckoutDispatch();
+
+  const { watch, setValue, clearErrors } = methods;
 
   const shipping = watch("shipping");
   const watchCountry = watch("billing.country");
@@ -60,6 +64,11 @@ function BillingForm() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const onStripeChange = () => {
+    clearErrors("stripe");
+    setError(null);
   };
 
   return (
@@ -111,6 +120,7 @@ function BillingForm() {
               <CardNumberElement
                 options={{ style }}
                 className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full p-1.5"
+                onChange={onStripeChange}
               />
             </div>
 
@@ -120,12 +130,14 @@ function BillingForm() {
                   options={{ style }}
                   placeholder="Expiry"
                   className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full p-1.5"
+                  onChange={onStripeChange}
                 />
               </div>
               <div className="w-1/2">
                 <CardCvcElement
                   options={{ style }}
                   className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full p-1.5"
+                  onChange={onStripeChange}
                 />
               </div>
             </div>

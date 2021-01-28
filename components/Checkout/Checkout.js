@@ -24,6 +24,7 @@ function Checkout({ cartId }) {
     nextStepFrom,
     capture,
     setProcessing,
+    setError: setCheckoutError,
   } = useCheckoutDispatch();
   const methods = useForm({
     shouldUnregister: false,
@@ -100,10 +101,7 @@ function Checkout({ cartId }) {
         res.statusCode !== 402 ||
         res.data.error.type !== "requires_verification"
       ) {
-        setError("checkoutError", {
-          type: "manual",
-          message: res.data.error.message,
-        });
+        setCheckoutError(res.data.error.message);
         setProcessing(false);
         return;
       }
