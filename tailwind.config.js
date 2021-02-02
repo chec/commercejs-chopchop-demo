@@ -11,7 +11,7 @@ module.exports = {
         asparagus: "#789750",
         goldenrod: "#FFCE70",
         black: "#150703",
-        "faded-black": "rgba(21,7,3,0.3)",
+        "faded-black": "rgba(21,7,3,0.6)",
         "ecru-white": "#FAF8F3",
         "white-rock": "#E8E0CF",
       },

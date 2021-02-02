@@ -9,7 +9,7 @@ function Footer() {
       <div className="container mx-auto px-3 md:px-4 lg:px-5 md:flex md:items-center space-y-6 md:space-y-0">
         <div className="w-full md:w-1/3">
           <Link href="/">
-            <a>
+            <a title="Return to ChopChop">
               <LogoSVG className="w-full md:w-auto md:h-8" />
             </a>
           </Link>
@@ -18,6 +18,7 @@ function Footer() {
         <div className="w-full md:w-1/3 flex items-center md:justify-center">
           <a
             href="https://commercejs.com"
+            title="Visit Commerce.js website"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-1 text-faded-black hover:text-black transition-colors"

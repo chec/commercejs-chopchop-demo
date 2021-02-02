@@ -13,6 +13,7 @@ function ProductImages({ images = [] }) {
         className="rounded-lg hover:rounded-none transition-all"
         quality={100}
         loading="eager"
+        alt=""
       />
     </div>
   ));

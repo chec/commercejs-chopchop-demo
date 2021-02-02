@@ -47,7 +47,7 @@ function ShippingForm() {
 
       setCountries(countries);
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 
@@ -62,7 +62,7 @@ function ShippingForm() {
 
       setSubdivisions(subdivisions);
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 
@@ -89,7 +89,7 @@ function ShippingForm() {
         selectShippingMethod(shippingOption.id);
       }
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 
@@ -100,7 +100,7 @@ function ShippingForm() {
     try {
       await setShippingMethod(optionId, watchCountry, watchSubdivision);
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 

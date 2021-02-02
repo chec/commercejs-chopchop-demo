@@ -40,7 +40,7 @@ export const CartProvider = ({ children }) => {
 
       dispatch({ type: SET_CART, payload: cart });
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 

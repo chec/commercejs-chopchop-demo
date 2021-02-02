@@ -56,7 +56,7 @@ export const CheckoutProvider = ({ children }) => {
 
       dispatch({ type: SET_CHECKOUT, payload });
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 
@@ -70,7 +70,7 @@ export const CheckoutProvider = ({ children }) => {
 
       dispatch({ type: SET_LIVE, payload: live });
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 

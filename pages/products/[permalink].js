@@ -93,8 +93,7 @@ function ProductPage({ product }) {
           }
         )
       )
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         toast.error("Please try again.");
       });
 
