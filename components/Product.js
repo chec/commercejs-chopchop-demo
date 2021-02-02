@@ -17,8 +17,7 @@ function Product({ media, name, permalink, price, className }) {
               src={media.source}
               alt={Product.name}
               layout="fill"
-              quality={100}
-              loading="eager"
+              sizes="616px, (min-width: 768px): 352px, (min-width: 1024px): 232px, (min-width: 1280px): 288px"
               className="object-cover"
               priority={true}
             />

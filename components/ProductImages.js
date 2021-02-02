@@ -12,7 +12,6 @@ function ProductImages({ images = [] }) {
         height={image_dimensions.height}
         className="rounded-lg hover:rounded-none transition-all"
         quality={100}
-        loading="eager"
         alt=""
       />
     </div>
