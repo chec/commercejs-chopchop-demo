@@ -50,7 +50,7 @@ function BillingForm() {
 
       setCountries(countries);
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 
@@ -62,7 +62,7 @@ function BillingForm() {
 
       setSubdivisions(subdivisions);
     } catch (err) {
-      console.log(err);
+      // noop
     }
   };
 
