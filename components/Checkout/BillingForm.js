@@ -80,7 +80,7 @@ function BillingForm() {
             Billing address
           </legend>
 
-          {collects.shipping_address && (
+          {collects?.shipping_address && (
             <FormCheckbox
               label="Same as shipping address"
               name="billingIsShipping"
