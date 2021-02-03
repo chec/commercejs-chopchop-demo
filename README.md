@@ -38,7 +38,7 @@ You can use the [Chec CLI](https://github.com/chec/cli) to quickly and easily in
 to install sample data into your account. To install the Chec CLI, run `npm install -g @chec/cli` (or `yarn global add @chec/cli`).
 
 * Navigate to your projects folder: `cd ~/Projects`
-* Install the Chop Chop demo store: `chec demo-store`
+* Install the ChopChop demo store: `chec demo-store`
   * Choose "Chop Chop demo store (Next.js)" from the list
   * This will install dependencies and sample data, then start your dev server
   * Stop the server, open `.env` and add your `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` for using Stripe, then re-run `npm run dev`
@@ -82,7 +82,7 @@ And you're ready to go!
 
 #### Caveats for sample data
 
-To make your Chop Chop experience even better, there are a couple of things you can do that are not included with
+To make your ChopChop experience even better, there are a couple of things you can do that are not included with
 the sample data:
 
 * **Add related products:** Go into the [Chec Dashboard](https://dashboard.chec.io) and set related products for each
