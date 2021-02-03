@@ -16,10 +16,12 @@ A Next.js, Commerce.js and Vercel powered, open source storefront, cart and chec
   <a href="https://commercejs-chopchop-demo.vercel.app">
     <img src="https://cdn.chec.io/email/assets/marketing/chec-demo-btn_gray.svg" alt="View demo" />
   </a>
+  <br />
+  <br />
+  <a href="https://commercejs-chopchop-demo.vercel.app">
+    <img src="https://images.ctfassets.net/u77gi3ejnmxq/60D21gkBJHgH9YI3bizA3Q/c81183ac0cccb0ece6547da5021dc8b9/Group_558.png" alt="View demo" width="600" />
+  </a>
 </p>
-
-
-[![Vercel Demo Preview](https://images.ctfassets.net/u77gi3ejnmxq/60D21gkBJHgH9YI3bizA3Q/c81183ac0cccb0ece6547da5021dc8b9/Group_558.png)](https://commercejs-chopchop-demo.vercel.app)
 
 ## Introduction
 
