@@ -11,7 +11,15 @@ A Next.js, Commerce.js and Vercel powered, open source storefront, cart and chec
   </a>
   <br>
   <a href="https://commercejs.com">commercejs.com</a> | <a href="https://twitter.com/commercejs">@commercejs</a> | <a href="http://slack.commercejs.com">Slack</a>
+  <br />
+  <br />
+  <a href="https://commercejs-chopchop-demo.vercel.app">
+    <img src="https://cdn.chec.io/email/assets/marketing/chec-demo-btn_gray.svg" alt="View demo" />
+  </a>
 </p>
+
+
+[![Vercel Demo Preview](https://images.ctfassets.net/u77gi3ejnmxq/60D21gkBJHgH9YI3bizA3Q/c81183ac0cccb0ece6547da5021dc8b9/Group_558.png)](https://commercejs-chopchop-demo.vercel.app)
 
 ## Introduction
 
@@ -79,6 +87,14 @@ Added:
 ```
 
 And you're ready to go!
+
+### Deploying to Vercel (with one click)
+
+The one-click deploy allows you to add the Vercel application to your GitHub account to clone this repository and deploy it automatically. Be sure to go to [Vercel](https://vercel.com/signup) and sign up for an account with Github, GitLab, or GitBucket before clicking the deploy button.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/project?template=https://github.com/chec/commercejs-chopchop-demo)
+
+Please make sure that you enter the required environment variables listed above during deployment.
 
 #### Caveats for sample data
 
