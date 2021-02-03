@@ -21,6 +21,7 @@ Chop Chop is built with the following technologies:
 * [Commerce.js](https://commercejs.com)
 * [Tailwind CSS](https://tailwindcss.com/)
 * [Stripe](https://stripe.com)
+* [Vercel](https://vercel.com/)
 
 ## Live demo
 
