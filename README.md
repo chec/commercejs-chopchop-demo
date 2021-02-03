@@ -15,7 +15,10 @@ A beautifully designed, elegantly developed commerce demo. An open source storef
 
 ## Introduction
 
-Chop Chop is built with the following technologies:
+ChopChop is our beautifully designed, elegantly developed demo store and starter kit that sells fine tools for thoughtful cooks. We’ve created a premium brand with a commerce experience to match.
+
+
+## 🥞 ChopChop Stack
 
 * [Next.js](https://nextjs.org/)
 * [Commerce.js](https://commercejs.com)
@@ -87,6 +90,17 @@ the sample data:
 * **Set up shipping rates:** Also in the dashboard, set up some shipping zones and rates in Settings > Shipping, then
   enable them on each of your products. This will enable the "Shipping" checkout screen, and allow you to charge
   shipping for your customers as well.
+
+## Customizations and Extendability 
+
+- Integrate another payment gateway, either one of our supported gateways or your own with our [manual gateway API](https://commercejs.com/docs/guides/manual-payment-integration)
+- Integrate with the Google Calendar API to automatically add ticketed items to a customer’s calendars
+- Suggest products from other sources based on items purchased, i.e. a book on knife skills if you buy the knife set
+- Add [Algolia](https://www.algolia.com/) for integrated search
+- Add additional modules to the checkout flow to handle other content types, like booking a time to pickup in-store purchases
+- Integrate with a headless CMS to make the content editable
+- Create a customers login section using our [customers endpoint](https://commercejs.com/docs/api/#customers)
+- Use webhooks to deliver SMS notifications about orders
 
 ## License
 
