@@ -8,7 +8,7 @@ import {
 
 import { commerce } from "../../lib/commerce";
 
-import { useCheckoutDispatch } from "../../context/checkout";
+import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import { FormCheckbox, FormInput, FormError } from "../Form";
 import AddressFields from "./AddressFields";
@@ -29,6 +29,7 @@ function BillingForm() {
   const [countries, setCountries] = useState();
   const [subdivisions, setSubdivisions] = useState();
   const methods = useFormContext();
+  const { collects } = useCheckoutState();
   const { setError } = useCheckoutDispatch();
 
   const { watch, setValue, clearErrors } = methods;
@@ -79,13 +80,15 @@ function BillingForm() {
             Billing address
           </legend>
 
-          <FormCheckbox
-            label="Same as shipping address"
-            name="billingIsShipping"
-            onChange={({ target: { checked } }) =>
-              checked && setValue("billing", shipping)
-            }
-          />
+          {collects?.shipping_address && (
+            <FormCheckbox
+              label="Same as shipping address"
+              name="billingIsShipping"
+              onChange={({ target: { checked } }) =>
+                checked && setValue("billing", shipping)
+              }
+            />
+          )}
 
           <AddressFields
             prefix="billing"
