@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/chec/commercejs-examples/master/assets/logo.svg" width="380" height="100" />
 </p>
 <p align="center">
-A beautifully designed, elegantly developed commerce demo. An open source storefront, cart and checkout experience.
+A Next.js, Commerce.js and Vercel powered, open source storefront, cart and checkout experience.
 </p>
 
 <p align="center">
