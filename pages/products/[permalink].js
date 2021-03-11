@@ -45,14 +45,19 @@ export async function getStaticPaths() {
 
 function ProductPage({ product }) {
   const { setCart } = useCartDispatch();
-  const { variants, assets, meta, related_products } = product;
+  const {
+    variant_groups: variantGroups,
+    assets,
+    meta,
+    related_products: relatedProducts,
+  } = product;
   const images = assets.filter(({ is_image }) => is_image);
   const setTheme = useThemeDispatch();
   const { openModal } = useModalDispatch();
 
   const initialVariants = React.useMemo(
     () =>
-      variants.reduce((all, { id, options }) => {
+      variantGroups.reduce((all, { id, options }) => {
         const [firstOption] = options;
 
         return { ...all, [id]: firstOption.id };
@@ -139,7 +144,7 @@ function ProductPage({ product }) {
                   </div>
 
                   <VariantPicker
-                    variants={variants}
+                    variantGroups={variantGroups}
                     defaultValues={initialVariants}
                     onChange={handleVariantChange}
                   />
@@ -169,7 +174,7 @@ function ProductPage({ product }) {
       </div>
 
       <div className="py-3 md:py-4 lg:py-8">
-        <RelatedProducts products={related_products} />
+        <RelatedProducts products={relatedProducts} />
       </div>
     </React.Fragment>
   );
