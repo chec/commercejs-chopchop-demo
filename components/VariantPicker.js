@@ -2,23 +2,23 @@ import React from "react";
 
 import Chevron from "../svg/chevron.svg";
 
-function VariantPicker({ variants = [], defaultValues = {}, ...props }) {
-  if (!variants || variants.length === 0) return null;
+function VariantPicker({ variantGroups = [], defaultValues = {}, ...props }) {
+  if (!variantGroups || variantGroups.length === 0) return null;
 
   return (
     <div className="space-x-2 md:flex">
-      {variants.map(({ options, ...variant }) => (
+      {variantGroups.map(({ options, ...group }) => (
         <div
-          key={variant.id}
+          key={group.id}
           className="rounded border border-black relative w-32 overflow-hidden"
         >
-          <label htmlFor={variant.id} className="sr-only">
-            {variant.name}:
+          <label htmlFor={group.id} className="sr-only">
+            {group.name}:
           </label>
 
           <select
-            id={variant.id}
-            defaultValue={defaultValues[variant.id]}
+            id={group.id}
+            defaultValue={defaultValues[group.id]}
             className="appearance-none leading-none block w-full py-1 pr-6 pl-2"
             {...props}
           >

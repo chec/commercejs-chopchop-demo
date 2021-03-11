@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 import { commerce } from "../lib/commerce";
 import { useCartDispatch } from "../context/cart";
 
-function CartItem({ id, media, name, quantity, line_total, variants }) {
+function CartItem({ id, media, name, quantity, line_total, selected_options }) {
   const { setCart } = useCartDispatch();
-  const hasVariants = variants.length >= 1;
+  const hasVariants = selected_options.length >= 1;
 
   const handleUpdateCart = ({ cart }) => {
     setCart(cart);
@@ -67,7 +67,7 @@ function CartItem({ id, media, name, quantity, line_total, variants }) {
           </p>
           {hasVariants && (
             <p>
-              {variants.map(({ option_name }, index) => (
+              {selected_options.map(({ option_name }, index) => (
                 <React.Fragment key={index}>
                   {index ? `, ${option_name}` : option_name}
                 </React.Fragment>
