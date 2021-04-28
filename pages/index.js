@@ -25,6 +25,20 @@ function IndexPage({ products }) {
     <>
       <Head>
         <title>ChopChop</title>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', ${process.env.NEXT_PUBLIC_GA_TRACKING_ID});
+              `,
+          }}
+        />
       </Head>
       <div className="md:min-h-screen md:flex md:items-center">
         <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10">
