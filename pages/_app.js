@@ -1,11 +1,14 @@
 import "react-toastify/dist/ReactToastify.css";
 import "tailwindcss/tailwind.css";
 
+import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { ToastContainer } from "react-toastify";
 import Head from "next/head";
+
+import * as gtag from "../lib/gtag";
 
 import { ThemeProvider } from "../context/theme";
 import { ModalProvider } from "../context/modal";
@@ -28,10 +31,25 @@ const toastOptions = {
 };
 
 function MyApp({ Component, pageProps, router }) {
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Head>
-        <meta name="description" content="Fine tools for thoughtful cooks"></meta>
+        <meta
+          name="description"
+          content="Fine tools for thoughtful cooks"
+        ></meta>
       </Head>
       <Elements
         stripe={stripePromise}

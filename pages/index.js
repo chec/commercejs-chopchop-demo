@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from "next/head";
 import { motion } from "framer-motion";
 
 import { commerce } from "../lib/commerce";
@@ -25,20 +25,6 @@ function IndexPage({ products }) {
     <>
       <Head>
         <title>ChopChop</title>
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', ${process.env.NEXT_PUBLIC_GA_TRACKING_ID});
-              `,
-          }}
-        />
       </Head>
       <div className="md:min-h-screen md:flex md:items-center">
         <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10">
@@ -71,7 +57,10 @@ function IndexPage({ products }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
           >
-            <ProductGrid products={products} className="h-112 md:h-96 xl:h-112" />
+            <ProductGrid
+              products={products}
+              className="h-112 md:h-96 xl:h-112"
+            />
           </motion.div>
         </div>
       </div>
