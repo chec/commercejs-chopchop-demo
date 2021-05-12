@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from "next/head";
 import { motion } from "framer-motion";
 
 import { commerce } from "../lib/commerce";
@@ -57,7 +57,10 @@ function IndexPage({ products }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
           >
-            <ProductGrid products={products} className="h-112 md:h-96 xl:h-112" />
+            <ProductGrid
+              products={products}
+              className="h-112 md:h-96 xl:h-112"
+            />
           </motion.div>
         </div>
       </div>
