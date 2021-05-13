@@ -68,6 +68,7 @@ Once the server is running, open it up in your browser, start editing the code, 
 ### Sample data
 
 This repository comes with some sample products and images for you to use if you want to get up and running quickly.
+
 To install sample data, first copy `.env.example` to `.env`, then edit `.env` and fill out the
 following variables:
 
@@ -75,6 +76,7 @@ following variables:
   Developers > API keys
 * `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: Your Stripe test publishable key, available from the Stripe dashboard
 * `CHEC_SECRET_KEY`: Your Chec secret API key, used for seeding
+* `NEXT_PUBLIC_GA_TRACKING_ID`: Set this with your Google Analytics ID if you want to enable GA.
 
 Once this is done, save and close your file. You can now run the seeder to install sample data:
 
