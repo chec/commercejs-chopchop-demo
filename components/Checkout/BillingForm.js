@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { useDebounce } from "use-debounce";
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -35,7 +36,7 @@ function BillingForm() {
   const { watch, setValue, clearErrors } = methods;
 
   const shipping = watch("shipping");
-  const watchCountry = watch("billing.country");
+  const [watchCountry] = useDebounce(watch("billing.country"), 600);
 
   useEffect(() => {
     fetchCountries();
