@@ -22,7 +22,7 @@ function ExtraFieldsForm() {
   if (extrafields.length === 0) {
     useEffect(() => {
       setCurrentStep(nextStepFrom("extrafields"));
-    }, [extrafields]);
+    }, []);
     return null;
   }
 
