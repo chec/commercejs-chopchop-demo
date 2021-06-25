@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import { FormInput, FormCheckbox, FormTextarea } from "../Form";
@@ -19,7 +20,9 @@ function ExtraFieldsForm() {
   const { setCurrentStep, nextStepFrom } = useCheckoutDispatch();
 
   if (extrafields.length === 0) {
-    setCurrentStep(nextStepFrom("extrafields"));
+    useEffect(() => {
+      setCurrentStep(nextStepFrom("extrafields"));
+    }, [extrafields]);
     return null;
   }
 
