@@ -19,12 +19,12 @@ function ExtraFieldsForm() {
   const { extrafields } = useCheckoutState();
   const { setCurrentStep, nextStepFrom } = useCheckoutDispatch();
 
-  if (extrafields.length === 0) {
-    useEffect(() => {
+  useEffect(() => {
+    if (extrafields.length === 0) {
       setCurrentStep(nextStepFrom("extrafields"));
-    }, []);
+    }
     return null;
-  }
+  }, [extrafields]);
 
   return (
     <div className="md:flex md:space-x-12 lg:space-x-24">
