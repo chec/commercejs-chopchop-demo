@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { useDebounce } from "use-debounce";
 
 import { commerce } from "../../lib/commerce";
 
@@ -17,7 +18,7 @@ function ShippingForm() {
   const methods = useFormContext();
   const { watch, setValue } = methods;
 
-  const watchCountry = watch("shipping.country");
+  const [watchCountry] = useDebounce(watch("shipping.country"), 600);
   const watchSubdivision = watch("shipping.region");
 
   useEffect(() => {
