@@ -130,15 +130,17 @@ function ShippingForm() {
               <>
                 <div className="-space-y-1">
                   {shippingOptions.map(({ id, description, price }) => (
-                    <FormRadio
-                      id={id}
-                      type="radio"
-                      name="fulfillment.shipping_method"
-                      value={id}
-                      label={`${description}: ${price.formatted_with_symbol}`}
-                      onChange={onShippingSelect}
-                      required="You must select a shipping option"
-                    />
+                    <div key={id}>
+                      <FormRadio
+                        id={id}
+                        type="radio"
+                        name="fulfillment.shipping_method"
+                        value={id}
+                        label={`${description}: ${price.formatted_with_symbol}`}
+                        onChange={onShippingSelect}
+                        required="You must select a shipping option"
+                      />
+                    </div>
                   ))}
                 </div>
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import { FormInput, FormCheckbox, FormTextarea } from "../Form";
@@ -18,10 +19,12 @@ function ExtraFieldsForm() {
   const { extrafields } = useCheckoutState();
   const { setCurrentStep, nextStepFrom } = useCheckoutDispatch();
 
-  if (extrafields.length === 0) {
-    setCurrentStep(nextStepFrom("extrafields"));
+  useEffect(() => {
+    if (extrafields.length === 0) {
+      setCurrentStep(nextStepFrom("extrafields"));
+    }
     return null;
-  }
+  }, [extrafields]);
 
   return (
     <div className="md:flex md:space-x-12 lg:space-x-24">
