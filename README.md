@@ -56,10 +56,11 @@ to install sample data into your account. To install the Chec CLI, run `npm inst
 
 ### Manual installation
 
-Clone the project, then get started by installing the dependencies, and starting the dev server.
+Clone the project, then get started by installing the dependencies, creating a `.env` file, and starting the dev server.
 
 ```
 npm install
+cp .env.example .env
 npm run dev
 ```
 
