@@ -47,7 +47,7 @@ Check out https://commercejs-chopchop-demo.vercel.app to see this project in act
 - IDE or code editor of your choice
 - Node (v12 or higher)
 - NPM or Yarn
-- Chec CLI
+- Optional: [Chec CLI](https://github.com/chec/cli)
 
 ### Use the Chec CLI
 
