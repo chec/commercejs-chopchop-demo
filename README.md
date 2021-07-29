@@ -42,6 +42,13 @@ Check out https://commercejs-chopchop-demo.vercel.app to see this project in act
 
 ## Getting started
 
+### Prerequisites
+
+- IDE or code editor of your choice
+- Node (v12 or higher)
+- NPM or Yarn
+- Chec CLI
+
 ### Use the Chec CLI
 
 You can use the [Chec CLI](https://github.com/chec/cli) to quickly and easily install demo stores like this, and also
