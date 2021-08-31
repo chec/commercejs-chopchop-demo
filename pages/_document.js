@@ -9,7 +9,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="title" content="Headless Commerce example with Vercel" key="title" />
-          <meta name="description" content="An open source, headless commerce example is powered by Commerce.js and Vercel. Start your headless commerce eCommerce application." />
+          <meta name="description" content="An open source headless commerce example powered by Commerce.js and Vercel. Start your headless commerce application now!" />
           <GoogleFonts href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" />
           <GoogleFonts href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap" />
           {GA_TRACKING_ID && (
