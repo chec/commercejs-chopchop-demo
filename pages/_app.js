@@ -6,7 +6,6 @@ import { AnimatePresence } from "framer-motion";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { ToastContainer } from "react-toastify";
-import Head from "next/head";
 
 import * as gtag from "../lib/gtag";
 
@@ -45,12 +44,6 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="Fine tools for thoughtful cooks"
-        ></meta>
-      </Head>
       <Elements
         stripe={stripePromise}
         options={{
